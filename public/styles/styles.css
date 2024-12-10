@@ -1,0 +1,218 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: 'Arial', sans-serif;
+    background: #000;
+    color: white;
+}
+
+/* Pasek nawigacyjny */
+#navbar {
+    width: 100%;
+    background-color: #333;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    z-index: 10;
+    box-sizing: border-box; 
+}
+
+#app-name {
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+    flex-shrink: 0; 
+}
+
+#auth-buttons {
+    display: flex;
+    gap: 10px; 
+    flex-wrap: wrap; 
+}
+
+#auth-buttons button {
+    background-color: #f1f1f1;
+    color: #333;
+    border: none;
+    padding: 10px 15px; 
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 14px; 
+}
+
+#auth-buttons button:hover {
+    background-color: #ddd;
+}
+
+@media (max-width: 768px) {
+    #auth-buttons {
+        gap: 5px; 
+    }
+    #auth-buttons button {
+        padding: 8px 12px; 
+        font-size: 12px; 
+    }
+}
+
+#mars-container {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 60px; 
+    left: 0;
+    z-index: -1;
+}
+
+/* Przyciski  sektorów */
+#controls {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 20px;
+    z-index: 1;
+}
+
+button {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 30px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+    transform: scale(1.1);
+}
+
+button:active {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+}
+
+/* Panel z informacjami */
+#info-panel {
+    position: fixed;
+    top: 60px; 
+    left: -300px; 
+    width: 300px;
+    height: calc(100% - 60px); 
+    background-color: #222;
+    color: white;
+    padding: 20px;
+    box-shadow: 3px 0 10px rgba(0, 0, 0, 0.5);
+    transition: left 0.5s ease; 
+    z-index: 10;
+}
+
+#info-content {
+    margin-bottom: 20px;
+}
+
+#info-panel h2 {
+    margin-top: 0;
+    font-size: 24px;
+    text-transform: uppercase;
+    border-bottom: 2px solid white;
+    padding-bottom: 10px;
+}
+
+#info-panel p {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+#close-panel {
+    background-color: rgba(255, 255, 255, 0.3);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+#close-panel:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Panele logowania i rejestracji */
+#login-panel,
+#register-panel {
+    position: fixed;
+    top: 60px;
+    right: -400px;
+    width: 300px;
+    height: calc(100% - 60px);
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    box-shadow: -3px 0 10px rgba(0, 0, 0, 0.5);
+    transition: right 0.5s ease;
+    z-index: 10;
+}
+
+#login-panel h2,
+#register-panel h2 {
+    font-size: 24px;
+    text-transform: uppercase;
+    border-bottom: 2px solid white;
+    margin-bottom: 20px;
+}
+
+#login-panel form,
+#register-panel form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#login-panel input,
+#register-panel input {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#login-panel button,
+#register-panel button {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#login-panel button:hover,
+#register-panel button:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+#close-login-panel,
+#close-register-panel {
+    margin-top: 20px;
+    font-size: 14px;
+    background-color: rgba(255, 255, 255, 0.3);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
