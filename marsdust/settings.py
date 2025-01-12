@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'frontend',
     'marsdust'
 ]
 
@@ -122,3 +123,35 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Ustawienia statycznych plików (CSS, JS, obrazy)
+STATIC_URL = '/static/'  # URL, pod którym będą dostępne pliki statyczne
+
+# Dodaj foldery, w których będą przechowywane pliki statyczne
+STATICFILES_DIRS = [
+    BASE_DIR / 'frontend/static',  # Ścieżka do folderu static w aplikacji frontend
+]
+
+# Ustawienie STATIC_ROOT dla produkcji (opcja przy wdrożeniu)
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+
+# Ustawienia szablonów (HTML)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            BASE_DIR / 'frontend/templates',  # Folder z plikami HTML (np. index.html)
+        ],
+        'APP_DIRS': True,  # Umożliwia aplikacjom szukanie szablonów wewnątrz swoich folderów
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
