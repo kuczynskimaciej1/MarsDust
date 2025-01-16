@@ -35,8 +35,8 @@
     <div id="login-panel">
         <h2>Logowanie</h2>
         <form>
-            <input type="text" placeholder="Nazwa użytkownika" required />
-            <input type="password" placeholder="Hasło" required />
+            <input type="text" name="username" placeholder="Nazwa użytkownika" required />
+            <input type="password" name="password" placeholder="Hasło" required />
             <button type="submit">Zaloguj się</button>
         </form>
         <button id="close-login-panel">Zamknij</button>
@@ -56,5 +56,28 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="js/main.js"></script>
+
+    <script>
+        const loginForm = document.querySelector('#login-panel form');
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(loginForm);
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    username: formData.get('username'),
+                    password: formData.get('password'),
+                }),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                window.location.href = data.redirect;
+            } else {
+                alert('Nieprawidłowe dane logowania!');
+            }
+        });
+    </script>
 </body>
 </html>
