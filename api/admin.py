@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Storm, Speciality, Staff, ConservationSchedule, PartsInternalCode, PartExternalCode, Installation, PartsUsage, DamagedPart
+from db.models import Storm, Speciality, Staff, ConservationSchedule, PartsInternalCode, PartExternalCode, Installation, PartsUsage, DamagedPart
 
 #import os
 #os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'marsdust.settings')
