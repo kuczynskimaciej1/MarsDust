@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api.frontend',
     'marsdust',
-    'rest_framework'
+    'rest_framework',
+    'db',
+    'services'
 ]
 
 MIDDLEWARE = [
