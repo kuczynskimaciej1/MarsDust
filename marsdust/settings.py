@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+import db
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -34,13 +35,18 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    'django.contrib.admindocs',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'frontend',
-    'marsdust'
+    'django_extensions',
+    'api.frontend',
+    'marsdust',
+    'rest_framework',
+    'db',
+    'services'
 ]
 
 MIDDLEWARE = [
@@ -80,7 +86,7 @@ WSGI_APPLICATION = 'marsdust.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / 'db' / 'db.sqlite3',
     }
 }
 
@@ -132,7 +138,7 @@ STATIC_URL = '/static/'  # URL, pod którym będą dostępne pliki statyczne
 
 # Dodaj foldery, w których będą przechowywane pliki statyczne
 STATICFILES_DIRS = [
-    BASE_DIR / 'frontend/static',  # Ścieżka do folderu static w aplikacji frontend
+    BASE_DIR / 'api/frontend/static',  # Ścieżka do folderu static w aplikacji frontend
 ]
 
 # Ustawienie STATIC_ROOT dla produkcji (opcja przy wdrożeniu)

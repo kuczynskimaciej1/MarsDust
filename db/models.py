@@ -30,7 +30,7 @@ class Staff(models.Model):
     staff_id = models.AutoField(primary_key=True)  # Auto-increment field
     name = models.CharField(max_length=255)  # Staff name, NOT NULL
     surname = models.CharField(max_length=255)  # Surname, NOT NULL
-    speciality = models.ForeignKey('Speciality', on_delete=models.CASCADE)  # ForeignKey to Specialities
+    speciality = models.OneToOneField('Speciality', on_delete=models.CASCADE)  # ForeignKey to Specialities
     traits = models.CharField(max_length=255)  # Traits, NOT NULL
 
     def __str__(self):
@@ -39,7 +39,7 @@ class Staff(models.Model):
 
 class ConservationSchedule(models.Model):
     task_id = models.AutoField(primary_key=True)  # Auto-increment field
-    staff = models.ForeignKey('Staff', on_delete=models.CASCADE)  # ForeignKey to Staff
+    staff = models.OneToOneField('Staff', on_delete=models.CASCADE)  # ForeignKey to Staff
     start_time = models.DateTimeField()  # Start timestamp, NOT NULL
     end_time = models.DateTimeField()  # End timestamp, NOT NULL
 
@@ -47,53 +47,51 @@ class ConservationSchedule(models.Model):
         return f"Task {self.task_id} - Staff {self.staff.name}"
 
 
-class PartsInternalCode(models.Model):
-    part_id = models.IntegerField(primary_key=True)  # Primary key
-    internal_id = models.IntegerField()  # Internal ID
+class Part(models.Model):
+    part_id = models.AutoField(primary_key=True)  # Primary key
+    installation = models.OneToOneField('Installation', on_delete=models.CASCADE)
+    name = models.TextField(max_length=255)
 
     def __str__(self):
-        return f"Part {self.part_id} - Internal {self.internal_id}"
-
-
-class PartExternalCode(models.Model):
-    part_id = models.AutoField(primary_key=True)  # Auto-increment primary key
-    name = models.CharField(max_length=255)  # Name, NOT NULL
-
-    def __str__(self):
-        return self.name
+        return f"Part {self.part_id}"
 
 
 class Installation(models.Model):
-    installation = models.TextField()  # Placeholder for "Installation_Obj"
-    sector_table_varname = models.TextField()  # Placeholder for "Sector_Table"
+    installation_id = models.AutoField(primary_key=True)  # Placeholder for "Installation_Obj"
+    sector_id = models.OneToOneField('Sector', on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
 
     def __str__(self):
-        return self.installation
+        return self.installation_id
+    
+
+class Sector(models.Model):
+    sector_id = models.AutoField(primary_key=True)
+    max_latitude = models.IntegerField()
+    min_latitude = models.IntegerField()
+    max_longitude = models.IntegerField()
+    min_longitude = models.IntegerField()
+
+    def __str__(self):
+        return self.sector_id
 
 
 class PartsUsage(models.Model):
-    installation = models.ForeignKey('Installation', on_delete=models.CASCADE)  # Foreign key to Installation
-    part = models.ForeignKey('PartsInternalCode', on_delete=models.CASCADE)  # Foreign key to PartsInternalCode
-    internal_id = models.IntegerField()
-
-
-    class Meta:
-        unique_together = ('installation', 'part')  # Composite primary key equivalent
+    part_usage_id = models.AutoField(primary_key=True)
+    installation = models.OneToOneField('Installation', on_delete=models.CASCADE)  # Foreign key to Installation
+    part = models.OneToOneField('Part', on_delete=models.CASCADE)  # Foreign key to PartsInternalCode
 
     def __str__(self):
         return f"Usage: Installation {self.installation} - Part {self.part}"
 
 
-class DamagedPart(models.Model):
-    part = models.ForeignKey('PartsInternalCode', on_delete=models.CASCADE)  # Foreign key to PartsInternalCode
-    internal_id = models.IntegerField()
+class Damage(models.Model):
+    damage_id = models.AutoField(primary_key=True)
+    part = models.OneToOneField('Part', on_delete=models.CASCADE)  # Foreign key to PartsInternalCode
     presumpted_or_reported = models.BooleanField()  # Converted from NUMBER(1)
-    queued_task = models.ForeignKey('ConservationSchedule', null=True, blank=True, on_delete=models.SET_NULL)
-    cause_id = models.CharField(max_length=7, null=True, blank=True)  # Nullable VARCHAR(7)
+    queued_task = models.OneToOneField('ConservationSchedule', null=True, blank=True, on_delete=models.SET_NULL)
+    cause_id = models.OneToOneField('Storm', null=True, blank=True, on_delete=models.SET_NULL)
     severity = models.IntegerField()  # Severity level, NOT NULL
-
-    class Meta:
-        unique_together = ('part', 'internal_id')  # Composite primary key equivalent
 
     def __str__(self):
         return f"Damaged Part {self.part} - Severity {self.severity}"

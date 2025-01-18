@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Storm, Speciality, Staff, ConservationSchedule, PartsInternalCode, PartExternalCode, Installation, PartsUsage, DamagedPart
+from db.models import Sector, Storm, Speciality, Staff, ConservationSchedule, Part, Installation, PartsUsage, Damage
 
 #import os
 #os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'marsdust.settings')
@@ -8,11 +8,11 @@ from .models import Storm, Speciality, Staff, ConservationSchedule, PartsInterna
 #django.setup()
 
 admin.site.register(Storm)
+admin.site.register(Sector)
 admin.site.register(Speciality)
 admin.site.register(Staff)
 admin.site.register(ConservationSchedule)
-admin.site.register(PartExternalCode)
-admin.site.register(PartsInternalCode)
+admin.site.register(Part)
 admin.site.register(Installation)
 admin.site.register(PartsUsage)
-admin.site.register(DamagedPart)
+admin.site.register(Damage)
