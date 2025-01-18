@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria NASA</title>
+    <link rel="stylesheet" href="{% static 'styles/galery.css' %}">
+</head>
+<body>
+    <nav id="navbar">
+        <div id="app-name">Mars-Dust</div>
+        <div id="auth-buttons">
+            <a href="{% url 'home' %}"><button>Strona Główna</button></a>
+        </div>
+    </nav>
+
+    <main id="gallery-section">
+        <h1>Galeria z API NASA</h1>
+        <div id="gallery-container">
+            <p id="loading-text">Ładowanie zdjęć...</p>
+        </div>
+    </main>
+
+    <div id="lightbox" class="hidden">
+        <div id="lightbox-content">
+            <img id="lightbox-img" src="" alt="Powiększone zdjęcie">
+            <button id="close-lightbox">X</button>
+        </div>
+    </div>
+
+    <script src="{% static 'js/gallery.js' %}"></script>
+</body>
+</html>
