@@ -88,19 +88,49 @@ function generateSectorButtons() {
     }
 }
 
+// Panel z informacjami o sektorze
+let currentSector = null;  // Zmienna przechowująca aktualnie wybrany sektor
+
+// Funkcja wyświetlająca informacje o sektorze
 function showSectorInfo(sector) {
-    const infoText = document.getElementById('info-text');
-    const details = {
-        1: "Sektor 1: Prognoza burz na najbliższy tydzień jest spokojna.",
-        2: "Sektor 2: Ostrzeżenie o możliwych burzach piaskowych.",
-        3: "Sektor 3: Stabilne warunki pogodowe, idealne do eksploracji.",
-        4: "Sektor 4: Wysoka aktywność pyłowa, zachowaj ostrożność.",
-        5: "Sektor 5: Optymalne warunki dla misji badawczej.",
-        
-    };
-    infoText.innerText = details[sector] || "Brak danych o wybranym sektorze.";
-    document.getElementById('info-panel').style.left = '0px';
+  const infoText = document.getElementById('info-text');
+  const details = {
+    1: "Sektor 1: Prognoza burz na najbliższy tydzień jest spokojna.",
+    2: "Sektor 2: Ostrzeżenie o możliwych burzach piaskowych.",
+    3: "Sektor 3: Stabilne warunki pogodowe, idealne do eksploracji.",
+    4: "Sektor 4: Wysoka aktywność pyłowa, zachowaj ostrożność.",
+    5: "Sektor 5: Optymalne warunki dla misji badawczej.",
+    11: "Sektor 11: Warunki sprzyjające budowie bazy, przewidywana stabilność atmosferyczna.",
+    // Dodajemy inne sektory...
+  };
+  infoText.innerText = details[sector] || "Brak danych o wybranym sektorze.";
+  currentSector = sector;  // Ustawiamy aktualny sektor
+  document.getElementById('info-panel').style.left = '0px';
 }
+
+// Funkcja wyświetlająca informacje o bazie
+function showBaseInfo() {
+  const baseInfo = {
+    1: "Baza w sektorze 1: Oczekiwana stabilność atmosferyczna, idealna do dalszej eksploracji.",
+    2: "Baza w sektorze 2: Należy zachować ostrożność, burze piaskowe mogą występować.",
+    3: "Baza w sektorze 3: Idealne warunki do długoterminowego pobytu.",
+    4: "Baza w sektorze 4: Zbudowanie bazy jest ryzykowne z powodu dużej aktywności pyłowej.",
+    5: "Baza w sektorze 5: Stabilne warunki, bezpieczne dla długoterminowego osiedlenia.",
+    11: "Baza w sektorze 11: Warunki sprzyjające budowie bazy, przewidywana stabilność atmosferyczna.",
+  };
+
+  const infoText = document.getElementById('info-text');
+  infoText.innerText += "\n\n" + baseInfo[currentSector] || "Brak danych o bazie dla tego sektora.";
+}
+
+// Obsługa kliknięcia w przycisk "Baza"
+document.getElementById('base-button').addEventListener('click', showBaseInfo);
+
+// Inne przyciski (np. "Zamknij")
+document.getElementById('close-panel').addEventListener('click', () => {
+  document.getElementById('info-panel').style.left = '-300px';
+});
+
 
 // Obsługa przycisków nawigacyjnych
 prevButton.addEventListener('click', () => {
@@ -116,6 +146,7 @@ nextButton.addEventListener('click', () => {
         generateSectorButtons();
     }
 });
+
 // Obsługa przycisku zamknięcia panelu z informacjami o sektorze
 const closePanelButton = document.getElementById('close-panel');
 
