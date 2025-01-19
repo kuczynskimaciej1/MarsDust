@@ -2,13 +2,13 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
-    background-color: #000; /* zmieniony na czarny tło */
-    color: white; /* zmieniono kolor tekstu na biały */
+    background-color: #000;
+    color: white;
     padding: 0;
 }
 
 nav {
-    background-color: #333; /* ciemny pasek nawigacyjny */
+    background-color: #333;
     color: white;
     display: flex;
     justify-content: space-between;
@@ -37,12 +37,12 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-    color: hsl(0, 0%, 87%); /* zmieniono na jaśniejszy odcień */
+    color: hsl(0, 0%, 87%);
 }
 
 main {
     padding: 2rem 3rem;
-    background-color: #222; /* ciemniejsze tło */
+    background-color: #222;
     min-height: 100vh;
 }
 
@@ -54,15 +54,15 @@ main {
 
 .sidebar {
     width: 20%;
-    background-color: #333; /* ciemniejsze tło nagłówków */
+    background-color: #333;
     padding: 1.5rem;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .menu-button {
-    background: #f1f1f1; /* jasny kolor na przyciski */
-    color: #333; /* ciemny kolor tekstu */
+    background: #f1f1f1;
+    color: #333;
     padding: 1rem;
     border: none;
     border-radius: 8px;
@@ -74,13 +74,13 @@ main {
 }
 
 .menu-button:hover {
-    background: #ddd; /* jaśniejszy kolor w efekcie hover */
+    background: #ddd;
     transform: scale(1.05);
 }
 
 .content {
     flex: 1;
-    background: #333; /* ciemne tło na zawartość */
+    background: #333;
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -89,17 +89,17 @@ main {
 #content-display h2 {
     margin: 0;
     font-size: 1.5rem;
-    color: #fff; /* jasny tekst na nagłówki */
+    color: #fff;
 }
 
 #content-display p {
     margin-top: 1rem;
-    color: #bbb; /* jaśniejszy kolor na tekst */
+    color: #bbb;
 }
 
 /* Style przycisków w sekcjach */
 button {
-    background: #444; /* ciemny kolor przycisków */
+    background: #444;
     color: white;
     padding: 0.8rem;
     border: none;
@@ -112,7 +112,7 @@ button {
 }
 
 button:hover {
-    background: #555; /* jaśniejszy odcień przycisku w hover */
+    background: #555;
     transform: scale(1.05);
 }
 
@@ -124,19 +124,20 @@ table {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-table th, table td {
+table th,
+table td {
     padding: 1rem;
     text-align: left;
-    border: 1px solid #444; /* ciemniejsze obramowanie */
+    border: 1px solid #444;
 }
 
 table th {
-    background-color: #333; /* ciemniejsze tło nagłówków */
+    background-color: #333;
     color: white;
 }
 
 table td {
-    background-color: #222; /* ciemniejsze tło komórek */
+    background-color: #222;
 }
 
 #charts {

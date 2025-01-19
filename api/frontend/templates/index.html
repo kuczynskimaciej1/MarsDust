@@ -13,22 +13,35 @@
       <div id="auth-buttons">
         <button id="login-button">Zaloguj się</button>
         <button id="register-button">Zarejestruj</button>
+        <a href="{% url 'gallery' %}"
+          ><button id="gallery-button">Galeria</button></a
+        >
+        <a href="{% url 'information' %}"
+          ><button id="info-button">Informacja</button></a
+        >
+        <!-- Nowy przycisk -->
       </div>
     </nav>
 
     <div id="mars-container"></div>
 
     <div id="controls">
-      <button>Sektor 1</button>
-      <button>Sektor 2</button>
-      <button>Sektor 3</button>
-      <button>Sektor 4</button>
+      <button id="prev-sector">←</button>
+      <div id="sector-buttons-container">
+        <div id="sector-buttons">
+          <!-- Przycisk sektora będzie dynamicznie generowany przez JavaScript -->
+        </div>
+      </div>
+      <button id="next-sector">→</button>
     </div>
 
+    <!-- Panel z informacjami o sektorze -->
     <div id="info-panel">
       <div id="info-content">
         <h2>Informacje o sektorze</h2>
         <p id="info-text">Wybierz sektor, aby zobaczyć szczegóły.</p>
+        <!-- Przycisk Baza, który wyświetli dodatkowe informacje -->
+        <button id="base-button">Baza</button>
       </div>
       <button id="close-panel">Zamknij</button>
     </div>

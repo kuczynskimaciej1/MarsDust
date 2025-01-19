@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Informacje o projekcie</title>
+    <link rel="stylesheet" href="{% static 'styles/info.css' %}" />
+  </head>
+  <body>
+    <nav id="navbar">
+      <div id="app-name">Mars-Dust</div>
+      <div id="auth-buttons">
+        <a href="{% url 'home' %}"
+          ><button id="home-button">Strona Główna</button></a
+        >
+        <a href="{% url 'gallery' %}"
+          ><button id="gallery-button">Galeria</button></a
+        >
+        <a href="{% url 'information' %}"
+          ><button id="info-button">Informacja</button></a
+        >
+      </div>
+    </nav>
+
+    <div id="content">
+      <h1>Informacje o projekcie Mars-Dust</h1>
+      <p>
+        Witamy na stronie projektu Mars-Dust, stworzonego w ramach zajęć.
+        Projekt ten przedstawia model 3D planety Marsa oraz informacje wraz z
+        danymi związane z burzami piaskowymi na tej planecie.
+      </p>
+
+      <h2>Czym są burze piaskowe na Marsie?</h2>
+      <p>
+        Burze piaskowe na Marsie to zjawiska atmosferyczne polegające na
+        unoszeniu cząsteczek pyłu i piasku w atmosferze planety. Mogą one
+        obejmować różne obszary, od lokalnych po globalne burze, które mogą
+        objąć całą planetę. Mars posiada cienką atmosferę, która sprzyja
+        tworzeniu silnych wiatrów, które unoszą pył i drobny piasek. Zjawisko to
+        jest szczególnie nasilone w okresie letnim na Marsie, gdy występują duże
+        zmiany temperatury, co powoduje różnice ciśnienia. Burze piaskowe mogą
+        trwać od kilku dni do nawet kilku tygodni. Podczas ich występowania
+        widoczność na Marsie znacznie się zmniejsza, a temperatura na
+        powierzchni może ulec zmianie. Globalne burze piaskowe potrafią zakłócić
+        działanie robotów marsjańskich, takich jak Opportunity, które straciły
+        łączność w wyniku takich zjawisk. Przemieszczający się pył może również
+        wpływać na badania naukowe, zmieniając warunki atmosferyczne. Cząsteczki
+        piasku na Marsie są bardzo drobne, co ułatwia ich unoszenie w
+        atmosferze, nawet mimo jej rzadkości. Burze piaskowe stanowią jedno z
+        charakterystycznych zjawisk marsjańskiego klimatu i są istotnym
+        wyzwaniem dla przyszłych misji na tę planetę.
+      </p>
+
+      <h2>Cel projektu</h2>
+      <p>
+        Projekt "Mars-Dust" ma na celu edukację użytkowników o charakterystyce
+        marsjańskich burz piaskowych, ich przyczynach oraz wpływie na badania
+        naukowe i misje kosmiczne. Dzięki wizualizacji tych danych, użytkownicy
+        będą mogli lepiej zrozumieć dynamikę atmosferyczną Marsa i wyzwania
+        związane z jego eksploracją.
+      </p>
+
+      <h2>Autorzy</h2>
+      <p>Wiktor Majchrzak i Maciej Kuczyński</p>
+    </div>
+  </body>
+</html>
