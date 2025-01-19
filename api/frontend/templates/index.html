@@ -14,15 +14,19 @@
           <button id="login-button">Zaloguj się</button>
           <button id="register-button">Zarejestruj</button>
           <a href="{% url 'gallery' %}"><button id="gallery-button">Galeria</button></a> 
-  </nav>
+      </div>
+    </nav>
 
     <div id="mars-container"></div>
 
     <div id="controls">
-      <button>Sektor 1</button>
-      <button>Sektor 2</button>
-      <button>Sektor 3</button>
-      <button>Sektor 4</button>
+      <button id="prev-sector">←</button>
+      <div id="sector-buttons-container">
+        <div id="sector-buttons">
+          <!-- Przycisk sektora będzie dynamicznie generowany przez JavaScript -->
+        </div>
+      </div>
+      <button id="next-sector">→</button>
     </div>
 
     <div id="info-panel">

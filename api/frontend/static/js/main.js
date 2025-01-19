@@ -42,8 +42,7 @@ function animate() {
 }
 animate();
 
-
-// tu jest interakcja z planeta 
+// Tu jest interakcja z planetą
 let isMouseDown = false;
 let previousMousePosition = { x: 0, y: 0 };
 
@@ -67,35 +66,67 @@ window.addEventListener('resize', () => {
     camera.updateProjectionMatrix();
 });
 
-// Panel z sektorami to do poprawy jest 
-const infoPanel = document.getElementById('info-panel');
-const infoText = document.getElementById('info-text');
-const closePanelButton = document.getElementById('close-panel');
-let isPanelOpen = false;
+// Panel z sektorami
+const sectorButtonsContainer = document.getElementById('sector-buttons');
+const prevButton = document.getElementById('prev-sector');
+const nextButton = document.getElementById('next-sector');
+
+const totalSectors = 19; // Całkowita liczba sektorów
+const buttonsPerPage = 5; // Liczba przycisków widocznych na raz
+let currentPage = 0; // Aktualna strona przycisków
+
+function generateSectorButtons() {
+    // Wyczyść istniejące przyciski
+    sectorButtonsContainer.innerHTML = '';
+
+    // Wygeneruj przyciski dla aktualnej strony
+    for (let i = currentPage * buttonsPerPage + 1; i <= (currentPage + 1) * buttonsPerPage && i <= totalSectors; i++) {
+        const button = document.createElement('button');
+        button.innerText = `Sektor ${i}`;
+        button.addEventListener('click', () => showSectorInfo(i));
+        sectorButtonsContainer.appendChild(button);
+    }
+}
 
 function showSectorInfo(sector) {
-    if (isPanelOpen) return;
+    const infoText = document.getElementById('info-text');
     const details = {
         1: "Sektor 1: Prognoza burz na najbliższy tydzień jest spokojna.",
         2: "Sektor 2: Ostrzeżenie o możliwych burzach piaskowych.",
         3: "Sektor 3: Stabilne warunki pogodowe, idealne do eksploracji.",
         4: "Sektor 4: Wysoka aktywność pyłowa, zachowaj ostrożność.",
+        5: "Sektor 5: Optymalne warunki dla misji badawczej.",
+        
     };
     infoText.innerText = details[sector] || "Brak danych o wybranym sektorze.";
-    infoPanel.style.left = '0px';
-    isPanelOpen = true;
+    document.getElementById('info-panel').style.left = '0px';
 }
 
+// Obsługa przycisków nawigacyjnych
+prevButton.addEventListener('click', () => {
+    if (currentPage > 0) {
+        currentPage--;
+        generateSectorButtons();
+    }
+});
+
+nextButton.addEventListener('click', () => {
+    if ((currentPage + 1) * buttonsPerPage < totalSectors) {
+        currentPage++;
+        generateSectorButtons();
+    }
+});
+// Obsługa przycisku zamknięcia panelu z informacjami o sektorze
+const closePanelButton = document.getElementById('close-panel');
+
 closePanelButton.addEventListener('click', () => {
-    infoPanel.style.left = '-300px';
-    isPanelOpen = false;
+    document.getElementById('info-panel').style.left = '-300px';  // Zawijanie panelu do lewej
 });
 
-document.querySelectorAll('#controls button').forEach((btn, index) => {
-    btn.addEventListener('click', () => showSectorInfo(index + 1));
-});
+// Inicjalizacja
+generateSectorButtons();
 
-//  logowanie i rejestracja 
+// Panel logowania i rejestracji
 const loginPanel = document.getElementById('login-panel');
 const registerPanel = document.getElementById('register-panel');
 const loginButton = document.getElementById('login-button');
