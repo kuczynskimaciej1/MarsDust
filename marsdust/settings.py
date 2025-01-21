@@ -43,10 +43,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #'django_extensions',
     'api.frontend',
+    'api',
     'marsdust',
     #'rest_framework',
     'db',
-    'services'
+    'services',
 ]
 
 MIDDLEWARE = [
@@ -163,3 +164,5 @@ TEMPLATES = [
         },
     },
 ]
+
+AUTH_USER_MODEL = 'my_app.CustomUser'

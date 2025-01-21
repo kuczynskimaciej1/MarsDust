@@ -1,5 +1,10 @@
 {% load static %}
 <!DOCTYPE html>
+<!-- Inside index.html -->
+<script>
+  const csrfToken = "{{ csrf_token }}";
+</script>
+
 <html lang="pl">
   <head>
     <meta charset="UTF-8" />
@@ -53,7 +58,10 @@
         <input type="password" placeholder="Hasło" required />
         <button type="submit">Zaloguj się</button>
       </form>
-      <button id="close-login-panel">Zamknij</button>
+      <div id="login-actions">
+        <button id="close-login-panel">Zamknij</button>
+        <button id="admin-panel-button">Panel administratora</button>
+      </div>
     </div>
 
     <div id="register-panel">

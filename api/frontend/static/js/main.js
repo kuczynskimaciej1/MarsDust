@@ -163,6 +163,7 @@ const registerPanel = document.getElementById('register-panel');
 const loginButton = document.getElementById('login-button');
 const registerButton = document.getElementById('register-button');
 const closeLoginPanelButton = document.getElementById('close-login-panel');
+const adminPanelButton = document.getElementById('admin-panel-button');
 const closeRegisterPanelButton = document.getElementById('close-register-panel');
 
 loginButton.addEventListener('click', () => {
@@ -182,3 +183,7 @@ closeLoginPanelButton.addEventListener('click', () => {
 closeRegisterPanelButton.addEventListener('click', () => {
     registerPanel.style.right = '-400px';
 });
+
+adminPanelButton.addEventListener('click', () => {
+    document.location.href = 'http://127.0.0.1:8000/admin/login/?next=/admin/'
+})
