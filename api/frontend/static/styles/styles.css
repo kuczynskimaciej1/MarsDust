@@ -229,6 +229,13 @@ button:active {
     font-size: 16px;
 }
 
+#login-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
 #login-panel button,
 #register-panel button {
     padding: 10px;
@@ -247,7 +254,8 @@ button:active {
 }
 
 #close-login-panel,
-#close-register-panel {
+#close-register-panel,
+#admin-panel-button {
     background-color: transparent;
     color: white;
     font-size: 18px;
@@ -256,4 +264,10 @@ button:active {
     margin-top: 20px;
     text-align: center;
     width: 100%;
+}
+
+#close-login-panel:hover,
+#close-register-panel:hover,
+#admin-panel-button:hover {
+    background-color: #666,
 }

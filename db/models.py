@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 class Storm(models.Model):
     storm_id = models.AutoField(primary_key=True)  # Auto-increment ID
@@ -97,3 +98,8 @@ class Damage(models.Model):
 
     def __str__(self):
         return f"Damaged Part {self.part} - Severity {self.severity}"
+
+
+class CustomUser(AbstractUser):
+    """Custom user model (optional, extends Django's default User)."""
+    pass
