@@ -164,5 +164,3 @@ TEMPLATES = [
         },
     },
 ]
-
-#AUTH_USER_MODEL = 'my_app.CustomUser'
