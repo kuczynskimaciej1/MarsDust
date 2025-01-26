@@ -249,10 +249,10 @@ async function handleLogin(event) {
 
     try {
         const result = await postData(API_LOGIN_URL, { username, password });
-        alert("Login successful!");
+        alert("Logowanie udane!");
         document.querySelector("#login-panel").style.right = "-400px"; // Close the login panel
         document.querySelector("#auth-buttons").innerHTML = `
-            <button id="logout-button">Logout</button>
+            <button id="logout-button">Wyloguj</button>
         `;
         document.querySelector("#logout-button").addEventListener("click", handleLogout);
     } catch (error) {
@@ -264,11 +264,8 @@ async function handleLogin(event) {
 async function handleLogout() {
     try {
         await postData(API_LOGOUT_URL, {});
-        alert("Logout successful!");
-        document.querySelector("#auth-buttons").innerHTML = `
-            <button id="login-button">Zaloguj się</button>
-            <button id="register-button">Zarejestruj</button>
-        `;
+        alert("Wylogowanie udane!");
+        window.location.href = "/"; // Przekierowanie na stronę główną
     } catch (error) {
         alert(error.message);
     }
@@ -284,7 +281,7 @@ async function handleRegister(event) {
 
     try {
         const result = await postData(API_REGISTER_URL, { username, email, password, confirm_password: confirmPassword });
-        alert("Registration successful! Please log in.");
+        alert("Rejestracja udana! Proszę się zalogować.");
         document.querySelector("#register-panel").style.right = "-400px"; // Close the register panel
     } catch (error) {
         alert(error.message);

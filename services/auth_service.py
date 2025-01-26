@@ -16,13 +16,13 @@ def logout_user(request):
 def register_user(username, password, email=None):
     """Register a new user."""
     if not username or not password or not email:
-        raise ValueError("Username, password, and email are required.")
+        raise ValueError("Proszę podać wszystkie dane: nazwa użytkownika, email, hasło.")
 
     if User.objects.filter(username=username).exists():
-        raise ValueError("User with this username already exists")
+        raise ValueError("Nazwa użytkownika jest już zajęta.")
 
     if User.objects.filter(email=email).exists():
-        raise ValueError("User with this email already exists")
+        raise ValueError("Adres email jest już zajęty.")
 
     user = User.objects.create_user(username=username, password=password, email=email)
     return user
