@@ -24,7 +24,7 @@ class Speciality(models.Model):
     name = models.CharField(max_length=255)  # Name, NOT NULL
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
 
 class Staff(models.Model):
@@ -63,7 +63,7 @@ class Installation(models.Model):
     name = models.CharField(max_length=255)
 
     def __str__(self):
-        return self.installation_id
+        return str(self.installation_id)
     
 
 class Sector(models.Model):
@@ -76,7 +76,7 @@ class Sector(models.Model):
     min_longitude = models.IntegerField()
 
     def __str__(self):
-        return self.sector_id
+        return str(self.sector_id)
 
 
 class PartsUsage(models.Model):
@@ -98,8 +98,3 @@ class Damage(models.Model):
 
     def __str__(self):
         return f"Damaged Part {self.part} - Severity {self.severity}"
-
-
-#class CustomUser(AbstractUser):
-  #  """Custom user model (optional, extends Django's default User)."""
- #   pass
