@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
 
 class Storm(models.Model):
     storm_id = models.AutoField(primary_key=True)  # Auto-increment ID

@@ -187,6 +187,7 @@ closePanelButton.addEventListener('click', () => {
 generateSectorButtons();
 
 // Panel logowania i rejestracji
+
 const loginPanel = document.getElementById('login-panel');
 const registerPanel = document.getElementById('register-panel');
 const loginButton = document.getElementById('login-button');
@@ -215,7 +216,96 @@ closeRegisterPanelButton.addEventListener('click', () => {
 
 adminPanelButton.addEventListener('click', () => {
     document.location.href = 'http://127.0.0.1:8000/admin/login/?next=/admin/'
-})
+});
+
+// URLs for API endpoints
+const API_LOGIN_URL = "/api/login/";
+const API_LOGOUT_URL = "/api/logout/";
+const API_REGISTER_URL = "/api/register/";
+
+// Utility to send POST requests
+async function postData(url = "", data = {}) {
+    const response = await fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": csrfToken,
+        },
+        body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "An error occurred.");
+    }
+
+    return response.json();
+}
+// Handle login
+async function handleLogin(event) {
+    event.preventDefault();
+    const username = document.querySelector("#login-panel input[type='text']").value;
+    const password = document.querySelector("#login-panel input[type='password']").value;
+
+    try {
+        const result = await postData(API_LOGIN_URL, { username, password });
+        alert("Login successful!");
+        document.querySelector("#login-panel").style.right = "-400px"; // Close the login panel
+        document.querySelector("#auth-buttons").innerHTML = `
+            <button id="logout-button">Logout</button>
+        `;
+        document.querySelector("#logout-button").addEventListener("click", handleLogout);
+    } catch (error) {
+        alert(error.message);
+    }
+}
+
+// Handle logout
+async function handleLogout() {
+    try {
+        await postData(API_LOGOUT_URL, {});
+        alert("Logout successful!");
+        document.querySelector("#auth-buttons").innerHTML = `
+            <button id="login-button">Zaloguj się</button>
+            <button id="register-button">Zarejestruj</button>
+        `;
+    } catch (error) {
+        alert(error.message);
+    }
+}
+
+// Handle registration
+async function handleRegister(event) {
+    event.preventDefault();
+    const username = document.querySelector("#register-panel input[type='text']").value;
+    const email = document.querySelector("#register-panel input[type='email']").value;
+    const password = document.querySelector("#register-panel input[type='password']").value;
+    const confirmPassword = document.querySelectorAll("#register-panel input[type='password']")[1].value;
+
+    try {
+        const result = await postData(API_REGISTER_URL, { username, email, password, confirm_password: confirmPassword });
+        alert("Registration successful! Please log in.");
+        document.querySelector("#register-panel").style.right = "-400px"; // Close the register panel
+    } catch (error) {
+        alert(error.message);
+    }
+}
+
+// Attach event listeners
+document.querySelector("#login-panel form").addEventListener("submit", handleLogin);
+document.querySelector("#register-panel form").addEventListener("submit", handleRegister);
+
+// Attach event listeners
+document.querySelector("#login-button").addEventListener("click", () => {
+    document.querySelector("#login-panel").style.right = "0";
+});
+
+document.querySelector("#close-login-panel").addEventListener("click", () => {
+    document.querySelector("#login-panel").style.right = "-400px";
+});
+
+
+
 
 document.getElementById('phobos-button').addEventListener('click', () => {
     document.getElementById('phobos-panel').style.left = '0px';  
