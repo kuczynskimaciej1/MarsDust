@@ -105,7 +105,7 @@ const sectorButtonsContainer = document.getElementById('sector-buttons');
 const prevButton = document.getElementById('prev-sector');
 const nextButton = document.getElementById('next-sector');
 
-const totalSectors = 19; 
+const totalSectors = 20; 
 const buttonsPerPage = 5; 
 let currentPage = 0; 
 
