@@ -6,7 +6,7 @@ document.getElementById('mars-container').appendChild(renderer.domElement);
 
 // Wczytanie tekstury Marsa
 const textureLoader = new THREE.TextureLoader();
-const marsTexture = textureLoader.load(window.imagePath);  // Korzystanie z globalnej zmiennej
+const marsTexture = textureLoader.load(window.imagePath);  
 const geometry = new THREE.SphereGeometry(5, 64, 64);
 const material = new THREE.MeshStandardMaterial({
     map: marsTexture,
@@ -34,9 +34,41 @@ starsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starPosi
 const stars = new THREE.Points(starsGeometry, starsMaterial);
 scene.add(stars);
 
+// Księżyce Marsa: Fobos i Deimos
+const moons = [];
+
+function createMoon(size, distance, speed, texturePath, name) {
+    const moonGeometry = new THREE.SphereGeometry(size, 32, 32);
+    const moonMaterial = new THREE.MeshStandardMaterial({
+        map: textureLoader.load(texturePath),
+        metalness: 0.3,
+        roughness: 0.8
+    });
+
+    const moon = new THREE.Mesh(moonGeometry, moonMaterial);
+    moon.position.set(distance, 0, 0);
+    moon.name = name;  
+    mars.add(moon);
+
+    moons.push({
+        mesh: moon,
+        distance: distance,
+        speed: speed,
+        angle: Math.random() * Math.PI * 2
+    });
+}
+
+createMoon(0.9, 11, 0.015, window.phobosTexture, 'Phobos');
+createMoon(0.5, 16, 0.01, window.deimosTexture, 'Deimos');
+
 // Animacja
 function animate() {
     requestAnimationFrame(animate);
+    moons.forEach(moon => {
+    moon.angle += moon.speed;
+    moon.mesh.position.x = Math.cos(moon.angle) * moon.distance;
+    moon.mesh.position.z = Math.sin(moon.angle) * moon.distance;
+});
     mars.rotation.y += 0.005;
     renderer.render(scene, camera);
 }
@@ -66,20 +98,20 @@ window.addEventListener('resize', () => {
     camera.updateProjectionMatrix();
 });
 
+
+
 // Panel z sektorami
 const sectorButtonsContainer = document.getElementById('sector-buttons');
 const prevButton = document.getElementById('prev-sector');
 const nextButton = document.getElementById('next-sector');
 
-const totalSectors = 19; // Całkowita liczba sektorów
-const buttonsPerPage = 5; // Liczba przycisków widocznych na raz
-let currentPage = 0; // Aktualna strona przycisków
+const totalSectors = 19; 
+const buttonsPerPage = 5; 
+let currentPage = 0; 
 
 function generateSectorButtons() {
-    // Wyczyść istniejące przyciski
     sectorButtonsContainer.innerHTML = '';
 
-    // Wygeneruj przyciski dla aktualnej strony
     for (let i = currentPage * buttonsPerPage + 1; i <= (currentPage + 1) * buttonsPerPage && i <= totalSectors; i++) {
         const button = document.createElement('button');
         button.innerText = `Sektor ${i}`;
@@ -89,7 +121,7 @@ function generateSectorButtons() {
 }
 
 // Panel z informacjami o sektorze
-let currentSector = null;  // Zmienna przechowująca aktualnie wybrany sektor
+let currentSector = null;  
 
 // Funkcja wyświetlająca informacje o sektorze
 function showSectorInfo(sector) {
@@ -101,10 +133,9 @@ function showSectorInfo(sector) {
     4: "Sektor 4: Wysoka aktywność pyłowa, zachowaj ostrożność.",
     5: "Sektor 5: Optymalne warunki dla misji badawczej.",
     11: "Sektor 11: Warunki sprzyjające budowie bazy, przewidywana stabilność atmosferyczna.",
-    // Dodajemy inne sektory...
   };
   infoText.innerText = details[sector] || "Brak danych o wybranym sektorze.";
-  currentSector = sector;  // Ustawiamy aktualny sektor
+  currentSector = sector;  
   document.getElementById('info-panel').style.left = '0px';
 }
 
@@ -128,7 +159,7 @@ document.getElementById('base-button').addEventListener('click', showBaseInfo);
 
 // Inne przyciski (np. "Zamknij")
 document.getElementById('close-panel').addEventListener('click', () => {
-  document.getElementById('info-panel').style.left = '-300px';
+  document.getElementById('info-panel').style.left = '-400px';
 });
 
 
@@ -147,14 +178,12 @@ nextButton.addEventListener('click', () => {
     }
 });
 
-// Obsługa przycisku zamknięcia panelu z informacjami o sektorze
 const closePanelButton = document.getElementById('close-panel');
 
 closePanelButton.addEventListener('click', () => {
-    document.getElementById('info-panel').style.left = '-300px';  // Zawijanie panelu do lewej
+    document.getElementById('info-panel').style.left = '-400px';  
 });
 
-// Inicjalizacja
 generateSectorButtons();
 
 // Panel logowania i rejestracji
@@ -187,3 +216,81 @@ closeRegisterPanelButton.addEventListener('click', () => {
 adminPanelButton.addEventListener('click', () => {
     document.location.href = 'http://127.0.0.1:8000/admin/login/?next=/admin/'
 })
+
+document.getElementById('phobos-button').addEventListener('click', () => {
+    document.getElementById('phobos-panel').style.left = '0px';  
+});
+
+document.getElementById('deimos-button').addEventListener('click', () => {
+    document.getElementById('deimos-panel').style.left = '0px';  
+});
+
+
+document.getElementById('close-phobos-panel').addEventListener('click', () => {
+    document.getElementById('phobos-panel').style.left = '-400px';  
+});
+
+document.getElementById('close-deimos-panel').addEventListener('click', () => {
+    document.getElementById('deimos-panel').style.left = '-400px';  
+});
+
+const apiKey = 'lt6L6FamZLkl9R78f7AQd4UqWW6fxLwUCg7IhDKs';
+const phobosDataUrl = `https://api.le-systeme-solaire.net/rest/bodies/phobos?apiKey=${apiKey}`;
+const deimosDataUrl = `https://api.le-systeme-solaire.net/rest/bodies/deimos?apiKey=${apiKey}`;
+
+async function fetchMoonData(moonUrl) {
+  const response = await fetch(moonUrl);
+  const data = await response.json();
+  return data;
+}
+
+async function displayMoonInfo() {
+    try {
+      const phobosData = await fetchMoonData(phobosDataUrl);
+      const deimosData = await fetchMoonData(deimosDataUrl);
+      
+      const phobosInfo = `
+        <h3>Phobos</h3>
+        <p><strong>Wielkość:</strong> ${phobosData.mass.massValue * Math.pow(10, phobosData.mass.massExponent)} kg</p>
+        <p><strong>Czas obiegu:</strong> ${phobosData.sideralOrbit} dni</p>
+        <p><strong>Średnica:</strong> ${phobosData.meanRadius * 2} km</p>
+        <p><strong>Typ orbity:</strong> Eliptyczna (Eccentricity: ${phobosData.eccentricity})</p>
+        <p><strong>Odległość od Marsa:</strong> Średnia: ${phobosData.semimajorAxis} km, Perihelion: ${phobosData.perihelion} km, Aphelion: ${phobosData.aphelion} km</p>
+        <p><strong>Temperatura powierzchni:</strong> Brak danych</p>
+        <p><strong>Okres rotacji:</strong> ${phobosData.sideralRotation} godzin</p>
+        <p><strong>Kompozycja chemiczna:</strong> Brak danych</p>
+        <p><strong>Wielkość (wymiary):</strong> ${phobosData.dimension}</p>
+        <p><strong>Grawitacja:</strong> ${phobosData.gravity} m/s²</p>
+        <p><strong>Escape Velocity:</strong> ${phobosData.escape} m/s</p>
+        <p><strong>Odkrywca:</strong> ${phobosData.discoveredBy}</p>
+        <p><strong>Data odkrycia:</strong> ${phobosData.discoveryDate}</p>
+      `;
+      
+      const deimosInfo = `
+        <h3>Deimos</h3>
+        <p><strong>Wielkość:</strong> ${deimosData.mass.massValue * Math.pow(10, deimosData.mass.massExponent)} kg</p>
+        <p><strong>Czas obiegu:</strong> ${deimosData.sideralOrbit} dni</p>
+        <p><strong>Średnica:</strong> ${deimosData.meanRadius * 2} km</p>
+        <p><strong>Typ orbity:</strong> Prawie kołowa (Eccentricity: ${deimosData.eccentricity})</p>
+        <p><strong>Odległość od Marsa:</strong> Średnia: ${deimosData.semimajorAxis} km, Perihelion: ${deimosData.perihelion} km, Aphelion: ${deimosData.aphelion} km</p>
+        <p><strong>Temperatura powierzchni:</strong> Brak danych</p>
+        <p><strong>Okres rotacji:</strong> ${deimosData.sideralRotation} godzin</p>
+        <p><strong>Kompozycja chemiczna:</strong> Brak danych</p>
+        <p><strong>Wielkość (wymiary):</strong> ${deimosData.dimension}</p>
+        <p><strong>Grawitacja:</strong> ${deimosData.gravity} m/s²</p>
+        <p><strong>Escape Velocity:</strong> ${deimosData.escape} m/s</p>
+        <p><strong>Odkrywca:</strong> ${deimosData.discoveredBy}</p>
+        <p><strong>Data odkrycia:</strong> ${deimosData.discoveryDate}</p>
+      `;
+  
+      document.getElementById('phobos-text').innerHTML = phobosInfo;
+      document.getElementById('deimos-text').innerHTML = deimosInfo;
+  
+    } catch (error) {
+      console.error('Error fetching moon data:', error);
+    }
+  }
+  
+
+// Wywołaj funkcję do załadowania danych po załadowaniu strony
+window.addEventListener('load', displayMoonInfo);
