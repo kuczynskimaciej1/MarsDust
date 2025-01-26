@@ -100,6 +100,6 @@ class Damage(models.Model):
         return f"Damaged Part {self.part} - Severity {self.severity}"
 
 
-class CustomUser(AbstractUser):
-    """Custom user model (optional, extends Django's default User)."""
-    pass
+#class CustomUser(AbstractUser):
+  #  """Custom user model (optional, extends Django's default User)."""
+ #   pass

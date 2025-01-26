@@ -106,7 +106,7 @@ button:active {
 #info-panel {
     position: fixed;
     top: 60px;
-    left: -300px;
+    left: -400px;
     width: 300px;
     height: calc(100% - 60px);
     background-color: #222;
@@ -270,4 +270,101 @@ button:active {
 #close-register-panel:hover,
 #admin-panel-button:hover {
     background-color: #666,
+}
+
+
+/* Panel z informacjami o Phobosie */
+#phobos-panel {
+    position: fixed;
+    top: 60px;
+    left: -600px; /* Ustawiamy panel poza ekranem */
+    width: 300px;
+    height: calc(100% - 60px);
+    background-color: #222;
+    color: white;
+    padding: 20px;
+    box-shadow: 3px 0 10px rgba(0, 0, 0, 0.5);
+    transition: left 0.5s ease;
+    z-index: 10;
+}
+
+#phobos-content {
+    margin-bottom: 20px;
+}
+
+#phobos-panel h2 {
+    margin-top: 0;
+    font-size: 24px;
+    text-transform: uppercase;
+    border-bottom: 2px solid white;
+    padding-bottom: 10px;
+}
+
+#phobos-panel p {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+#close-phobos-panel {
+    background-color: rgba(255, 255, 255, 0.3);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+#close-phobos-panel:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Panel z informacjami o Deimosie */
+#deimos-panel {
+    position: fixed;
+    top: 60px;
+    left: -600px; /* Ustawiamy panel poza ekranem */
+    width: 300px;
+    height: calc(100% - 60px);
+    background-color: #222;
+    color: white;
+    padding: 20px;
+    box-shadow: 3px 0 10px rgba(0, 0, 0, 0.5);
+    transition: left 0.5s ease;
+    z-index: 10;
+}
+
+#deimos-content {
+    margin-bottom: 20px;
+}
+
+#deimos-panel h2 {
+    margin-top: 0;
+    font-size: 24px;
+    text-transform: uppercase;
+    border-bottom: 2px solid white;
+    padding-bottom: 10px;
+}
+
+#deimos-panel p {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+#close-deimos-panel {
+    background-color: rgba(255, 255, 255, 0.3);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+#close-deimos-panel:hover {
+    background-color: rgba(255, 255, 255, 0.5);
 }

@@ -18,13 +18,12 @@
       <div id="auth-buttons">
         <button id="login-button">Zaloguj się</button>
         <button id="register-button">Zarejestruj</button>
-        <a href="{% url 'gallery' %}"
-          ><button id="gallery-button">Galeria</button></a
-        >
-        <a href="{% url 'information' %}"
-          ><button id="info-button">Informacja</button></a
-        >
-        <!-- Nowy przycisk -->
+        <a href="{% url 'gallery' %}"><button id="gallery-button">Galeria</button></a>
+        <a href="{% url 'information' %}"><button id="info-button">Informacja</button></a>
+        <!-- Przycisk do Phobos -->
+        <button id="phobos-button">Phobos</button>
+        <!-- Przycisk do Deimos -->
+        <button id="deimos-button">Deimos</button>
       </div>
     </nav>
 
@@ -39,6 +38,8 @@
       </div>
       <button id="next-sector">→</button>
     </div>
+
+    
 
     <!-- Panel z informacjami o sektorze -->
     <div id="info-panel">
@@ -63,6 +64,7 @@
         <button id="admin-panel-button">Panel administratora</button>
       </div>
     </div>
+    
 
     <div id="register-panel">
       <h2>Rejestracja</h2>
@@ -76,12 +78,37 @@
       <button id="close-register-panel">Zamknij</button>
     </div>
 
+   <!-- Panel z informacjami o Phobosie -->
+<div id="phobos-panel">
+  <div id="phobos-content">
+    <h2>Phobos</h2>
+    <p id="phobos-text">Wczytywanie danych o Phobosie...</p>
+  </div>
+  <button id="close-phobos-panel">Zamknij</button>
+</div>
+
+<!-- Panel z informacjami o Deimosie -->
+<div id="deimos-panel">
+  <div id="deimos-content">
+    <h2>Deimos</h2>
+    <p id="deimos-text">Wczytywanie danych o Deimosie...</p>
+  </div>
+  <button id="close-deimos-panel">Zamknij</button>
+</div>
+
+
+
     <!-- Wczytanie ścieżki do obrazu tekstury -->
     <script>
       window.imagePath = "{% static 'images/mars-texture.jpg' %}";
     </script>
+    <script>
+      window.phobosTexture = "{% static 'images/phobos-texture.jpg' %}";
+      window.deimosTexture = "{% static 'images/deimos-texture.jpg' %}";
+    </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="{% static 'js/main.js' %}"></script>
+    
   </body>
 </html>
