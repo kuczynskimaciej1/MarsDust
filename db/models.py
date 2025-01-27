@@ -49,7 +49,7 @@ class ConservationSchedule(models.Model):
 
 class Part(models.Model):
     part_id = models.AutoField(primary_key=True)  # Primary key
-    installation = models.OneToOneField('Installation', on_delete=models.CASCADE)
+    installation = models.OneToOneField('Installation', on_delete=models.CASCADE, related_name='Part')
     name = models.TextField(max_length=255)
 
     def __str__(self):
@@ -58,7 +58,7 @@ class Part(models.Model):
 
 class Installation(models.Model):
     installation_id = models.AutoField(primary_key=True)  # Placeholder for "Installation_Obj"
-    sector = models.OneToOneField('Sector', on_delete=models.CASCADE)
+    sector = models.OneToOneField('Sector', on_delete=models.CASCADE, related_name='Installation')
     name = models.CharField(max_length=255)
 
     def __str__(self):
@@ -73,6 +73,7 @@ class Sector(models.Model):
     min_latitude = models.IntegerField()
     max_longitude = models.IntegerField()
     min_longitude = models.IntegerField()
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name='sub_sectors', null=True, blank=True)
 
     def __str__(self):
         return str(self.sector_id)
@@ -80,8 +81,8 @@ class Sector(models.Model):
 
 class PartsUsage(models.Model):
     part_usage_id = models.AutoField(primary_key=True)
-    installation = models.OneToOneField('Installation', on_delete=models.CASCADE)  # Foreign key to Installation
-    part = models.OneToOneField('Part', on_delete=models.CASCADE)  # Foreign key to PartsInternalCode
+    installation = models.OneToOneField('Installation', on_delete=models.CASCADE, related_name='PartsUsage')  # Foreign key to Installation
+    part = models.OneToOneField('Part', on_delete=models.CASCADE, related_name='PartsUsage')  # Foreign key to PartsInternalCode
 
     def __str__(self):
         return f"Usage: Installation {self.installation} - Part {self.part}"
@@ -89,7 +90,7 @@ class PartsUsage(models.Model):
 
 class Damage(models.Model):
     damage_id = models.AutoField(primary_key=True)
-    part = models.OneToOneField('Part', on_delete=models.CASCADE)  # Foreign key to PartsInternalCode
+    part = models.OneToOneField('Part', on_delete=models.CASCADE, related_name='Damage')  # Foreign key to PartsInternalCode
     presumpted_or_reported = models.BooleanField()  # Converted from NUMBER(1)
     queued_task = models.ForeignKey('ConservationSchedule', null=True, blank=True, on_delete=models.SET_NULL)
     cause = models.ForeignKey('Storm', null=True, blank=True, on_delete=models.SET_NULL)

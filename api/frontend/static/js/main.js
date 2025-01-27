@@ -125,18 +125,65 @@ let currentSector = null;
 
 // Funkcja wyświetlająca informacje o sektorze
 function showSectorInfo(sector) {
-  const infoText = document.getElementById('info-text');
-  const details = {
-    1: "Sektor 1: Prognoza burz na najbliższy tydzień jest spokojna.",
-    2: "Sektor 2: Ostrzeżenie o możliwych burzach piaskowych.",
-    3: "Sektor 3: Stabilne warunki pogodowe, idealne do eksploracji.",
-    4: "Sektor 4: Wysoka aktywność pyłowa, zachowaj ostrożność.",
-    5: "Sektor 5: Optymalne warunki dla misji badawczej.",
-    11: "Sektor 11: Warunki sprzyjające budowie bazy, przewidywana stabilność atmosferyczna.",
-  };
-  infoText.innerText = details[sector] || "Brak danych o wybranym sektorze.";
-  currentSector = sector;  
-  document.getElementById('info-panel').style.left = '0px';
+    if (isLoggedIn == false)
+    {
+        const infoText = document.getElementById('info-text-logout');
+        const details = {
+          1: "Sektor 1: Prognoza burz na najbliższy tydzień jest spokojna.",
+          2: "Sektor 2: Ostrzeżenie o możliwych burzach piaskowych.",
+          3: "Sektor 3: Stabilne warunki pogodowe, idealne do eksploracji.",
+          4: "Sektor 4: Wysoka aktywność pyłowa, zachowaj ostrożność.",
+          5: "Sektor 5: Optymalne warunki dla misji badawczej.",
+          6: "Sektor 6: Średnie ryzyko burz piaskowych, zaleca się ograniczenie działań na otwartej przestrzeni.",
+          7: "Sektor 7: Warunki pogodowe stabilne, ale możliwość podwyższonej aktywności pyłowej w godzinach wieczornych.",
+          8: "Sektor 8: Niska widoczność z powodu unoszącego się pyłu, konieczne stosowanie dodatkowych filtrów ochronnych.",
+          9: "Sektor 9: Spokojna pogoda, idealna do konserwacji instalacji i sprzętu.",
+          10: "Sektor 10: Silne wiatry przewidywane na popołudnie, możliwe opóźnienia w komunikacji terenowej.",
+          11: "Sektor 11: Warunki sprzyjające budowie bazy, przewidywana stabilność atmosferyczna.",
+          12: "Sektor 12: Stabilne warunki atmosferyczne, sprzyjające testom nowych technologii.",
+          13: "Sektor 13: Podwyższona aktywność burz pyłowych w rejonach południowych, sugerowana ostrożność.",
+          14: "Sektor 14: Niewielkie podmuchy wiatru i umiarkowane warunki atmosferyczne, dobre do misji zwiadowczych.",
+          15: "Sektor 15: Możliwe krótkotrwałe burze magnetyczne, zachowaj ostrożność przy obsłudze urządzeń elektronicznych.",
+          16: "Sektor 16: Warunki atmosferyczne sprzyjające eksploracji, minimalna aktywność pyłowa.",
+          17: "Sektor 17: Średnie ryzyko burz, zaleca się monitorowanie warunków w czasie rzeczywistym.",
+          18: "Sektor 18: Spokojne warunki atmosferyczne, idealne do instalacji nowych paneli solarnych.",
+          19: "Sektor 19: Lekka aktywność pyłowa, zalecane działania prewencyjne na systemach wentylacyjnych.",
+          20: "Sektor 20: Przewidywana stabilność atmosferyczna, doskonała okazja do rozszerzenia działań naukowych.",
+        };
+        infoText.innerText = details[sector] || "Brak danych o wybranym sektorze.";
+        currentSector = sector;  
+        document.getElementById('info-panel-logout').style.left = '0px';
+    }
+
+    else
+    {
+        const infoText = document.getElementById('info-text-login');
+        const details = {
+          1: "DLA ZALOGOWANYCH",
+          2: "DLA ZALOGOWANYCH",
+          3: "DLA ZALOGOWANYCH",
+          4: "DLA ZALOGOWANYCH",
+          5: "DLA ZALOGOWANYCH",
+          6: "DLA ZALOGOWANYCH",
+          7: "DLA ZALOGOWANYCH",
+          8: "DLA ZALOGOWANYCH",
+          9: "DLA ZALOGOWANYCH",
+          10: "DLA ZALOGOWANYCH",
+          11: "DLA ZALOGOWANYCH",
+          12: "DLA ZALOGOWANYCH",
+          13: "DLA ZALOGOWANYCH",
+          14: "DLA ZALOGOWANYCH",
+          15: "DLA ZALOGOWANYCH",
+          16: "DLA ZALOGOWANYCH",
+          17: "DLA ZALOGOWANYCH",
+          18: "DLA ZALOGOWANYCH",
+          19: "DLA ZALOGOWANYCH",
+          20: "DLA ZALOGOWANYCH",
+        };
+        infoText.innerText = details[sector] || "Brak danych o wybranym sektorze.";
+        currentSector = sector;  
+        document.getElementById('info-panel-login').style.left = '0px';
+    }
 }
 
 // Funkcja wyświetlająca informacje o bazie
@@ -147,10 +194,24 @@ function showBaseInfo() {
     3: "Baza w sektorze 3: Idealne warunki do długoterminowego pobytu.",
     4: "Baza w sektorze 4: Zbudowanie bazy jest ryzykowne z powodu dużej aktywności pyłowej.",
     5: "Baza w sektorze 5: Stabilne warunki, bezpieczne dla długoterminowego osiedlenia.",
+    6: "Baza w sektorze 6: Warunki umiarkowane, ale możliwe krótkotrwałe burze piaskowe – zaleca się ostrożność przy budowie.",
+    7: "Baza w sektorze 7: Stabilna pogoda w większości rejonów, ale lokalna aktywność pyłowa może wpływać na widoczność.",
+    8: "Baza w sektorze 8: Niska widoczność z powodu unoszącego się pyłu, ale stabilne warunki do instalacji sprzętu ochronnego.",
+    9: "Baza w sektorze 9: Spokojne warunki atmosferyczne sprzyjają długoterminowym operacjom technicznym.",
+    10: "Baza w sektorze 10: Możliwe okresowe silne wiatry, zaleca się zabezpieczenie struktur budowlanych.",
     11: "Baza w sektorze 11: Warunki sprzyjające budowie bazy, przewidywana stabilność atmosferyczna.",
+    12: "Baza w sektorze 12: Stabilne warunki pogodowe, idealne do rozwijania infrastruktury naukowej.",
+    13: "Baza w sektorze 13: Podwyższone ryzyko burz pyłowych w niektórych rejonach – sugerowane wzmocnienie systemów ochronnych.",
+    14: "Baza w sektorze 14: Umiarkowane warunki atmosferyczne, dobre do rozpoczęcia mniejszych projektów osadniczych.",
+    15: "Baza w sektorze 15: Możliwe zakłócenia magnetyczne, ale ogólnie bezpieczne warunki do budowy i eksploatacji.",
+    16: "Baza w sektorze 16: Stabilne warunki atmosferyczne sprzyjają rozwojowi nowych instalacji technicznych.",
+    17: "Baza w sektorze 17: Średnie ryzyko wystąpienia burz pyłowych – zalecana ciągła obserwacja pogody.",
+    18: "Baza w sektorze 18: Stabilna pogoda idealna do rozbudowy paneli solarnych i infrastruktury energetycznej.",
+    19: "Baza w sektorze 19: Aktywność pyłowa jest minimalna, ale zalecane są prewencyjne środki ochrony sprzętu.",
+    20: "Baza w sektorze 20: Warunki atmosferyczne są bardzo korzystne, idealne miejsce na dalszą ekspansję naukową.",
   };
 
-  const infoText = document.getElementById('info-text');
+  const infoText = document.getElementById('info-text-logout');
   infoText.innerText += "\n\n" + baseInfo[currentSector] || "Brak danych o bazie dla tego sektora.";
 }
 
@@ -158,10 +219,13 @@ function showBaseInfo() {
 document.getElementById('base-button').addEventListener('click', showBaseInfo);
 
 // Inne przyciski (np. "Zamknij")
-document.getElementById('close-panel').addEventListener('click', () => {
-  document.getElementById('info-panel').style.left = '-400px';
+document.getElementById('close-panel-login').addEventListener('click', () => {
+  document.getElementById('info-panel-login').style.left = '-400px';
 });
 
+document.getElementById('close-panel-logout').addEventListener('click', () => {
+    document.getElementById('info-panel-logout').style.left = '-400px';
+  });
 
 // Obsługa przycisków nawigacyjnych
 prevButton.addEventListener('click', () => {
@@ -178,10 +242,15 @@ nextButton.addEventListener('click', () => {
     }
 });
 
-const closePanelButton = document.getElementById('close-panel');
+const closePanelLogoutButton = document.getElementById('close-panel-logout');
+const closePanelLoginButton = document.getElementById('close-panel-login');
 
-closePanelButton.addEventListener('click', () => {
-    document.getElementById('info-panel').style.left = '-400px';  
+closePanelLoginButton.addEventListener('click', () => {
+    document.getElementById('info-panel-login').style.left = '-400px';  
+});
+
+closePanelLogoutButton.addEventListener('click', () => {
+    document.getElementById('info-panel-logout').style.left = '-400px';  
 });
 
 generateSectorButtons();
@@ -195,6 +264,7 @@ const registerButton = document.getElementById('register-button');
 const closeLoginPanelButton = document.getElementById('close-login-panel');
 const adminPanelButton = document.getElementById('admin-panel-button');
 const closeRegisterPanelButton = document.getElementById('close-register-panel');
+let isLoggedIn = false;
 
 loginButton.addEventListener('click', () => {
     loginPanel.style.right = '0px';
@@ -255,6 +325,7 @@ async function handleLogin(event) {
             <button id="logout-button">Wyloguj</button>
         `;
         document.querySelector("#logout-button").addEventListener("click", handleLogout);
+        isLoggedIn = true;
     } catch (error) {
         alert(error.message);
     }
@@ -266,6 +337,7 @@ async function handleLogout() {
         await postData(API_LOGOUT_URL, {});
         alert("Wylogowanie udane!");
         window.location.href = "/"; // Przekierowanie na stronę główną
+        isLoggedIn = false;
     } catch (error) {
         alert(error.message);
     }
