@@ -240,13 +240,14 @@ function updateSectorInfo(data) {
     : "Brak instalacji";
 
     infoText.innerHTML = `
-        <p>Nazwa sektora: ${data["Sector name"]}</p>
-        <p>Opis: ${data["Description"]}</p>
-        <p>Minimalna szerokość geograficzna: ${data["Min latitude"]}</p>
-        <p>Maksymalna szerokość geograficzna: ${data["Max latitude"]}</p>
-        <p>Minimalna długość geograficzna: ${data["Min longitude"]}</p>
-        <p>Maksymalna długość geograficzna: ${data["Max longitude"]}</p>
-        <p>Instalacja: ${installationLink}</p>
+        <h3>Sektor ${data["Info"]}</h3>
+        <p><strong>Nazwa sektora:</strong> ${data["Sector name"]}</p>
+        <p><strong>Opis:</strong> ${data["Description"]}</p>
+        <p><strong>Minimalna szerokość geograficzna:</strong> ${data["Min latitude"]}</p>
+        <p><strong>Maksymalna szerokość geograficzna:</strong> ${data["Max latitude"]}</p>
+        <p><strong>Minimalna długość geograficzna:</strong> ${data["Min longitude"]}</p>
+        <p><strong>Maksymalna długość geograficzna:</strong> ${data["Max longitude"]}</p>
+        <p><strong>Instalacja:</strong> ${installationLink}</p>
     `;
     document.getElementById("info-panel-login").style.left = "0px";
 }
@@ -273,18 +274,19 @@ function updateStormInfo(data) {
 
     const infoText = document.getElementById("info-text-login");
     infoText.innerHTML = `
-        <p>Szerokość geograficzna centroidy: ${data["Centroid latitude"]}</p>
-        <p>Długość geograficzna centroidy: ${data["Centroid longitude"]}</p>
-        <p>Czas trwania: ${data["Duration"]}</p>
-        <p>Rok marsjański: ${data["Mars year"]}</p>
-        <p>ID fazy: ${data["Member ID"]}</p>
-        <p>Subfaza misji: ${data["Mission subphase"]}</p>
-        <p>Siła: ${data["Power"]}</p>
-        <p>Sol: ${data["Sol"]}</p>
-        <p>Szerokość burzy: ${data["Spread latitude"]}</p>
-        <p>Długość burzy: ${data["Spread longitude"]}</p>
-        <p>Uszkodzenia od kamieni: ${data["Stone damage"]}</p>
-        <p>Uszkodzenie: ${damageLink}</p>
+        <h3>Burza ${data["Info"]}</h3>
+        <p><strong>Szerokość geograficzna centroidy:</strong> ${data["Centroid latitude"]}</p>
+        <p><strong>Długość geograficzna centroidy:</strong> ${data["Centroid longitude"]}</p>
+        <p><strong>Czas trwania:</strong> ${data["Duration"]}</p>
+        <p><strong>Rok marsjański:</strong> ${data["Mars year"]}</p>
+        <p><strong>ID fazy:</strong> ${data["Member ID"]}</p>
+        <p><strong>Subfaza misji:</strong> ${data["Mission subphase"]}</p>
+        <p><strong>Siła:</strong> ${data["Power"]}</p>
+        <p><strong>Sol:</strong> ${data["Sol"]}</p>
+        <p><strong>Szerokość burzy:</strong> ${data["Spread latitude"]}</p>
+        <p><strong>Długość burzy:</strong> ${data["Spread longitude"]}</p>
+        <p><strong>Uszkodzenia od kamieni:</strong> ${data["Stone damage"]}</p>
+        <p><strong>Uszkodzenie:</strong> ${damageLink}</p>
     `;
     document.getElementById("info-panel-login").style.left = "0px";
 }
@@ -311,8 +313,9 @@ function updateSpecialityInfo(data) {
 
     const infoText = document.getElementById("info-text-login");
     infoText.innerHTML = `
-        <p>Nazwa: ${data["Name"]}</p>
-        <p>Pracownik: ${staffLink}</p>
+        <h3>Specjalizacja ${data["Info"]}</h3>
+        <p><strong>Nazwa:</strong> ${data["Name"]}</p>
+        <p><strong>Pracownik:</strong> ${staffLink}</p>
     `;
     document.getElementById("info-panel-login").style.left = "0px";
 }
@@ -343,11 +346,12 @@ function updateStaffInfo(data) {
 
     const infoText = document.getElementById("info-text-login");
     infoText.innerHTML = `
-        <p>Specjalizacja: ${specialityLink}</p>
-        <p>Imię: ${data["Name"]}</p>
-        <p>Nazwisko: ${data["Surname"]}</p>
-        <p>Cechy: ${data["Traits"]}</p>
-        <p>Naprawa: ${conservationScheduleLink}</p>
+        <h3>Pracownik ${data["Info"]}</h3>
+        <p><strong>Specjalizacja:</strong> ${specialityLink}</p>
+        <p><strong>Imię:</strong> ${data["Name"]}</p>
+        <p><strong>Nazwisko:</strong> ${data["Surname"]}</p>
+        <p><strong>Cechy:</strong> ${data["Traits"]}</p>
+        <p><strong>Naprawa:</strong> ${conservationScheduleLink}</p>
     `;
     document.getElementById("info-panel-login").style.left = "0px";
 }
@@ -378,10 +382,11 @@ function updateConservationScheduleInfo(data) {
 
     const infoText = document.getElementById("info-text-login");
     infoText.innerHTML = `
-        <p>Pracownik: ${staffLink}</p>
-        <p>Czas rozpoczęcia: ${data["Start time"]}</p>
-        <p>Czas zakończenia: ${data["End time"]}</p>
-        <p>Uszkodzenie: ${damageLink}</p>
+        <h3>Naprawa ${data["Info"]}</h3>
+        <p><strong>Pracownik:</strong> ${staffLink}</p>
+        <p><strong>Czas rozpoczęcia:</strong> ${data["Start time"]}</p>
+        <p><strong>Czas zakończenia:</strong> ${data["End time"]}</p>
+        <p><strong>Uszkodzenie:</strong> ${damageLink}</p>
     `;
     document.getElementById("info-panel-login").style.left = "0px";
 }
@@ -416,10 +421,11 @@ function updatePartInfo(data) {
 
     const infoText = document.getElementById("info-text-login");
     infoText.innerHTML = `
-        <p>Instalacja: ${installationLink}</p>
-        <p>Nazwa: ${data["Name"]}</p>
-        <p>Użycie części: ${partUsageLink}</p>
-        <p>Uszkodzenie: ${damageLink}</p>
+        <h3>Część ${data["Info"]}</h3>
+        <p><strong>Instalacja:</strong> ${installationLink}</p>
+        <p><strong>Nazwa:</strong> ${data["Name"]}</p>
+        <p><strong>Użycie części:</strong> ${partUsageLink}</p>
+        <p><strong>Uszkodzenie:</strong> ${damageLink}</p>
     `;
     document.getElementById("info-panel-login").style.left = "0px";
 }
@@ -450,9 +456,10 @@ function updateInstallationInfo(data) {
 
     const infoText = document.getElementById("info-text-login");
     infoText.innerHTML = `
-        <p>Sektor: ${sectorLink}</p>
-        <p>Nazwa: ${data["Name"]}</p>
-        <p>Użycie części: ${partUsageLink}</p>
+        <h3>Instalacja ${data["Info"]}</h3>
+        <p><strong>Sektor:</strong> ${sectorLink}</p>
+        <p><strong>Nazwa:</strong> ${data["Name"]}</p>
+        <p><strong>Użycie części:</strong> ${partUsageLink}</p>
     `;
     document.getElementById("info-panel-login").style.left = "0px";
 }
@@ -483,8 +490,9 @@ function updatePartUsageInfo(data) {
 
     const infoText = document.getElementById("info-text-login");
     infoText.innerHTML = `
-        <p>Część: ${partLink}</p>
-        <p>Instalacja: ${installationLink}</p>
+        <h3>Użycie części ${data["Info"]}</h3>
+        <p><strong>Część:</strong> ${partLink}</p>
+        <p><strong>Instalacja:</strong> ${installationLink}</p>
     `;
     document.getElementById("info-panel-login").style.left = "0px";
 }
@@ -519,11 +527,12 @@ function updateDamageInfo(data) {
 
     const infoText = document.getElementById("info-text-login");
     infoText.innerHTML = `
-        <p>Powód: ${stormLink}</p>
-        <p>Część: ${partLink}<p>
-        <p>Zaplanowana naprawa: ${conservationScheduleLink}<p>
-        <p>Stwierdzona czy podejrzewana: ${data["Presumpted or reported"]}<p>
-        <p>Poważność: ${data["Severity"]}<p>
+        <h3>Uszkodzenie ${data["Info"]}</h3>
+        <p><strong>Powód:</strong> ${stormLink}</p>
+        <p><strong>Część:</strong> ${partLink}<p>
+        <p><strong>Zaplanowana naprawa:</strong> ${conservationScheduleLink}<p>
+        <p><strong>Stwierdzona czy podejrzewana:</strong> ${data["Presumpted or reported"]}<p>
+        <p><strong>Poważność:</strong> ${data["Severity"]}<p>
     `;
     document.getElementById("info-panel-login").style.left = "0px";
 }

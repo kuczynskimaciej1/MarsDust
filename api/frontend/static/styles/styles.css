@@ -415,3 +415,19 @@ button:active {
 #close-deimos-panel:hover {
     background-color: rgba(255, 255, 255, 0.5);
 }
+
+#info-text-login a {
+    color: white !important; /* Ustawia biały kolor dla linków */
+}
+
+#info-text-login a:visited {
+    color: white !important; /* Biały kolor dla odwiedzonych linków */
+}
+
+#info-text-login a:hover {
+    color: white !important; /* Biały kolor po najechaniu */
+}
+
+#info-text-login a:active {
+    color: white !important; /* Biały kolor dla aktywnych linków */
+}

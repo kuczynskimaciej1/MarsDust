@@ -85,7 +85,7 @@ class PartsUsage(models.Model):
     part = models.OneToOneField('Part', on_delete=models.CASCADE, related_name='PartsUsage')  # Foreign key to PartsInternalCode
 
     def __str__(self):
-        return str(f"Usage: Installation {self.installation} - Part {self.part}")
+        return str(f"Usage {self.part_usage_id}: Installation {self.installation} - Part {self.part}")
 
 
 class Damage(models.Model):

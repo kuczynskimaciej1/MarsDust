@@ -6,6 +6,7 @@ def get_storm_info(id):
         damage = Damage.objects.filter(cause=storm.storm_id).first()
 
         return {
+            "Info": storm.__str__(),
             "Centroid latitude": storm.centroid_latitude,
             "Centroid longitude": storm.centroid_longitude,
             "Duration": storm.duration,
@@ -30,6 +31,7 @@ def get_speciality_info(id):
         staff = Staff.objects.filter(speciality=speciality.speciality_id).first()
 
         return {
+            "Info": speciality.__str__(),
             "Name": speciality.name,
             "Staff": staff.__str__() if staff else "Brak personelu",
             "Staff ID": staff.staff_id if staff else "Brak personelu"
@@ -44,6 +46,7 @@ def get_staff_info(id):
         conservation_schedule = ConservationSchedule.objects.filter(staff=staff.staff_id).first()
 
         return {
+            "Info": staff.__str__(),
             "Speciality": staff.speciality.__str__() if staff.speciality else "Brak specjalizacji",
             "Speciality ID": staff.speciality.speciality_id if staff.speciality else "Brak specjalizacji",
             "Name": staff.name,
@@ -62,6 +65,7 @@ def get_conservationschedule_info(id):
         damage = Damage.objects.filter(queued_task=conservation_schedule.task_id).first()
 
         return {
+            "Info": conservation_schedule.__str__(),
             "Staff": conservation_schedule.staff.__str__() if conservation_schedule.staff else "Brak personelu",
             "Staff ID": conservation_schedule.staff.staff_id if conservation_schedule.staff else "Brak personelu",
             "Start time": conservation_schedule.start_time,
@@ -80,6 +84,7 @@ def get_part_info(id):
         damage = Damage.objects.filter(part = part).first()
 
         return {
+            "Info": part.__str__(),
             "Installation": part.installation.__str__() if part.installation else "Brak instalacji",
             "Installation ID": part.installation.installation_id if part.installation else "Brak instalacji",
             "Name": part.name,
@@ -98,6 +103,7 @@ def get_installation_info(id):
         part_usage = PartsUsage.objects.filter(installation=installation.installation_id).first()
 
         return {
+            "Info": installation.__str__(),
             "Sector": installation.sector.__str__() if installation.sector else "Brak sektora",
             "Sector ID": installation.sector.sector_id if installation.sector else "Brak sektora",
             "Name": installation.name,
@@ -114,6 +120,7 @@ def get_sector_info(id):
         installation = Installation.objects.filter(sector=sector).first()
 
         return {
+            "Info": sector.__str__(),
             "Sector name": sector.name,
             "Description": sector.description,
             "Min latitude": sector.min_latitude,
@@ -132,6 +139,7 @@ def get_partsusage_info(id):
         part_usage = PartsUsage.objects.get(part_usage_id=id)
 
         return {
+            "Info": part_usage.__str__(),
             "Part": part_usage.part.__str__() if part_usage.part else "Brak części",
             "Part ID": part_usage.part.part_id if part_usage.part else "Brak części",
             "Installation": part_usage.installation.__str__() if part_usage.installation else "Brak instalacji",
@@ -146,6 +154,7 @@ def get_damage_info(id):
         damage = Damage.objects.get(damage_id=id)
 
         return {
+            "Info": damage.__str__(),
             "Cause": damage.cause.__str__() if damage.cause else "Brak burzy",
             "Cause ID": damage.cause.storm_id if damage.cause else "Brak burzy",
             "Part": damage.part.__str__() if damage.part else "Brak części",
