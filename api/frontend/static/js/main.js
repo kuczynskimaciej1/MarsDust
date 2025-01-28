@@ -157,33 +157,36 @@ function showSectorInfo(sector) {
 
     else
     {
-        const infoText = document.getElementById('info-text-login');
-        const details = {
-          1: "DLA ZALOGOWANYCH",
-          2: "DLA ZALOGOWANYCH",
-          3: "DLA ZALOGOWANYCH",
-          4: "DLA ZALOGOWANYCH",
-          5: "DLA ZALOGOWANYCH",
-          6: "DLA ZALOGOWANYCH",
-          7: "DLA ZALOGOWANYCH",
-          8: "DLA ZALOGOWANYCH",
-          9: "DLA ZALOGOWANYCH",
-          10: "DLA ZALOGOWANYCH",
-          11: "DLA ZALOGOWANYCH",
-          12: "DLA ZALOGOWANYCH",
-          13: "DLA ZALOGOWANYCH",
-          14: "DLA ZALOGOWANYCH",
-          15: "DLA ZALOGOWANYCH",
-          16: "DLA ZALOGOWANYCH",
-          17: "DLA ZALOGOWANYCH",
-          18: "DLA ZALOGOWANYCH",
-          19: "DLA ZALOGOWANYCH",
-          20: "DLA ZALOGOWANYCH",
-        };
-        infoText.innerText = details[sector] || "Brak danych o wybranym sektorze.";
-        currentSector = sector;  
-        document.getElementById('info-panel-login').style.left = '0px';
+        fetchSectorDetails(sector);
     }
+}
+
+async function fetchSectorDetails(sectorId) {
+    try {
+        const response = await fetch(`/api/sector/${sectorId}/`);
+        if (!response.ok) {
+            throw new Error("Nie udało się pobrać danych o sektorze.");
+        }
+        const data = await response.json();
+        updateSectorInfo(data); // Funkcja do aktualizacji panelu informacyjnego
+    } catch (error) {
+        console.error(error);
+        alert("Nie udało się pobrać danych o sektorze.");
+    }
+}
+
+function updateSectorInfo(data) {
+    const infoText = document.getElementById("info-text-login");
+    infoText.innerText = `
+        Nazwa sektora: ${data["Sector name"]}
+        Opis: ${data["Description"]}
+        Minimalna szerokość geograficzna: ${data["Min latitude"]}
+        Maksymalna szerokość geograficzna: ${data["Max latitude"]}
+        Minimalna długość geograficzna: ${data["Min longitude"]}
+        Maksymalna długość geograficzna: ${data["Max longitude"]}
+        Instalacja: ${data["Instalacja"]}
+    `;
+    document.getElementById("info-panel-login").style.left = "0px";
 }
 
 // Funkcja wyświetlająca informacje o bazie

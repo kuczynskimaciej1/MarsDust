@@ -37,10 +37,21 @@ def get_installation_info(id):
         print("Nie znaleziono bazy danych.")
         
 def get_sector_info(id):
-    if Sector:
-        return Sector.objects.get(sector_id=id)
-    else:
-        print("Nie znaleziono bazy danych.")
+    try:
+        sector = Sector.objects.get(sector_id=id)
+        installation = Installation.objects.filter(sector=sector).first()
+
+        return {
+            "Sector name": sector.name,
+            "Description": sector.description,
+            "Min latitude": sector.min_latitude,
+            "Max latitude": sector.max_latitude,
+            "Min longitude": sector.min_longitude,
+            "Max longitude": sector.max_longitude,
+            "Instalacja": installation.installation_id if installation else "Brak instalacji"
+        }
+    except Sector.DoesNotExist:
+        return {"error": "Sektor nie istnieje"}
         
 def get_partsusage_info(id):
     if PartsUsage:

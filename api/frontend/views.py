@@ -12,6 +12,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 import json
+from services.sector_service import *
 
 def home(request):
     return render(request, 'index.html')
@@ -73,14 +74,17 @@ class RegisterAPIView(APIView):
         
         
         
-class SectorView(APIView):
-    @login_required
-    def get(self, request, id):
-        try:
-            data = get_sector_info(id)
-            return Response(data, status=status.HTTP_200_OK)
-        except Sector.DoesNotExist:
-            return Response({"error": "Sektor nie znaleziony"}, status=status.HTTP_404_NOT_FOUND)
+
+@login_required
+def sector_details(request, sector_id):
+    try:
+        details = get_sector_info(sector_id)
+        if details:
+            return JsonResponse(details)  # Zwracanie szczegółów w formacie JSON
+        else:
+            return JsonResponse({"error": "Nie znaleziono sektora."}, status=404)
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)
 
 
 class StormView(APIView):
