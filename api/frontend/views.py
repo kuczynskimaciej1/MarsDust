@@ -78,83 +78,107 @@ class RegisterAPIView(APIView):
 @login_required
 def sector_details(request, sector_id):
     try:
-        details = get_sector_info(sector_id)
-        if details:
-            return JsonResponse(details)  # Zwracanie szczegółów w formacie JSON
+        data = get_sector_info(sector_id)
+        if data:
+            return JsonResponse(data)  # Zwracanie szczegółów w formacie JSON
         else:
             return JsonResponse({"error": "Nie znaleziono sektora."}, status=404)
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
 
 
-class StormView(APIView):
-    @login_required
-    def get(self, request, id):
-        try:
-            data = get_storm_info(id)
-            return Response(data, status=status.HTTP_200_OK)
-        except Sector.DoesNotExist:
-            return Response({"error": "Burza nie znaleziona"}, status=status.HTTP_404_NOT_FOUND)
 
-class SpecialityView(APIView):
-    @login_required
-    def get(self, request, id):
-        try:
-            data = get_speciality_info(id)
-            return Response(data, status=status.HTTP_200_OK)
-        except Sector.DoesNotExist:
-            return Response({"error": "Specjalność nie znaleziona"}, status=status.HTTP_404_NOT_FOUND)
-        
-class StaffView(APIView):
-    @login_required
-    def get(self, request, id):
-        try:
-            data = get_staff_info(id)
-            return Response(data, status=status.HTTP_200_OK)
-        except Sector.DoesNotExist:
-            return Response({"error": "Pracownik nie znaleziony"}, status=status.HTTP_404_NOT_FOUND)
-        
-class ConservationScheduleView(APIView):
-    @login_required
-    def get(self, request, id):
-        try:
-            data = get_conservationschedule_info(id)
-            return Response(data, status=status.HTTP_200_OK)
-        except Sector.DoesNotExist:
-            return Response({"error": "Naprawa nie znaleziona"}, status=status.HTTP_404_NOT_FOUND)
-        
-class PartView(APIView):
-    @login_required
-    def get(self, request, id):
-        try:
-            data = get_part_info(id)
-            return Response(data, status=status.HTTP_200_OK)
-        except Sector.DoesNotExist:
-            return Response({"error": "Część nie znaleziona"}, status=status.HTTP_404_NOT_FOUND)
-        
-class InstallationView(APIView):
-    @login_required
-    def get(self, request, id):
-        try:
-            data = get_installation_info(id)
-            return Response(data, status=status.HTTP_200_OK)
-        except Sector.DoesNotExist:
-            return Response({"error": "Instalacja nie znaleziona"}, status=status.HTTP_404_NOT_FOUND)
-        
-class PartsUsageView(APIView):
-    @login_required
-    def get(self, request, id):
-        try:
-            data = get_partsusage_info(id)
-            return Response(data, status=status.HTTP_200_OK)
-        except Sector.DoesNotExist:
-            return Response({"error": "Użycie części nie znalezione"}, status=status.HTTP_404_NOT_FOUND)
-        
-class DamageView(APIView):
-    @login_required
-    def get(self, request, id):
-        try:
-            data = get_damage_info(id)
-            return Response(data, status=status.HTTP_200_OK)
-        except Sector.DoesNotExist:
-            return Response({"error": "Uszkodzenie nie znalezione"}, status=status.HTTP_404_NOT_FOUND)
+@login_required
+def storm_details(request, storm_id):
+    try:
+        data = get_storm_info(storm_id)
+        if data:
+            return JsonResponse(data)  # Zwracanie szczegółów w formacie JSON
+        else:
+            return JsonResponse({"error": "Nie znaleziono burzy."}, status=404)
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)
+
+
+@login_required
+def speciality_details(request, speciality_id):
+    try:
+        data = get_speciality_info(speciality_id)
+        if data:
+            return JsonResponse(data)  # Zwracanie szczegółów w formacie JSON
+        else:
+            return JsonResponse({"error": "Nie znaleziono specjalności."}, status=404)
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)
+    
+
+@login_required
+def staff_details(request, staff_id):
+    try:
+        data = get_staff_info(staff_id)
+        if data:
+            return JsonResponse(data)  # Zwracanie szczegółów w formacie JSON
+        else:
+            return JsonResponse({"error": "Nie znaleziono pracownika."}, status=404)
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)
+    
+
+@login_required
+def conservation_schedule_details(request, task_id):
+    try:
+        data = get_conservationschedule_info(task_id)
+        if data:
+            return JsonResponse(data)  # Zwracanie szczegółów w formacie JSON
+        else:
+            return JsonResponse({"error": "Nie znaleziono naprawy."}, status=404)
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)
+    
+
+@login_required
+def part_details(request, part_id):
+    try:
+        data = get_part_info(part_id)
+        if data:
+            return JsonResponse(data)  # Zwracanie szczegółów w formacie JSON
+        else:
+            return JsonResponse({"error": "Nie znaleziono części."}, status=404)
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)
+
+@login_required
+def installation_details(request, installation_id):
+    try:
+        data = get_installation_info(installation_id)
+        print(data)
+        if data:
+            return JsonResponse(data)  # Zwracanie szczegółów w formacie JSON
+        else:
+            return JsonResponse({"error": "Nie znaleziono instalacji."}, status=404)
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)
+    
+
+@login_required
+def part_usage_details(request, part_usage_id):
+    try:
+        data = get_partsusage_info(part_usage_id)
+        if data:
+            return JsonResponse(data)  # Zwracanie szczegółów w formacie JSON
+        else:
+            return JsonResponse({"error": "Nie znaleziono użycia części."}, status=404)
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)
+    
+
+@login_required
+def damage_details(request, damage_id):
+    try:
+        data = get_damage_info(damage_id)
+        if data:
+            return JsonResponse(data)  # Zwracanie szczegółów w formacie JSON
+        else:
+            return JsonResponse({"error": "Nie znaleziono uszkodzenia."}, status=404)
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)

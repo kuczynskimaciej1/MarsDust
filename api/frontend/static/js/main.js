@@ -161,34 +161,6 @@ function showSectorInfo(sector) {
     }
 }
 
-async function fetchSectorDetails(sectorId) {
-    try {
-        const response = await fetch(`/api/sector/${sectorId}/`);
-        if (!response.ok) {
-            throw new Error("Nie udało się pobrać danych o sektorze.");
-        }
-        const data = await response.json();
-        updateSectorInfo(data); // Funkcja do aktualizacji panelu informacyjnego
-    } catch (error) {
-        console.error(error);
-        alert("Nie udało się pobrać danych o sektorze.");
-    }
-}
-
-function updateSectorInfo(data) {
-    const infoText = document.getElementById("info-text-login");
-    infoText.innerText = `
-        Nazwa sektora: ${data["Sector name"]}
-        Opis: ${data["Description"]}
-        Minimalna szerokość geograficzna: ${data["Min latitude"]}
-        Maksymalna szerokość geograficzna: ${data["Max latitude"]}
-        Minimalna długość geograficzna: ${data["Min longitude"]}
-        Maksymalna długość geograficzna: ${data["Max longitude"]}
-        Instalacja: ${data["Instalacja"]}
-    `;
-    document.getElementById("info-panel-login").style.left = "0px";
-}
-
 // Funkcja wyświetlająca informacje o bazie
 function showBaseInfo() {
   const baseInfo = {
@@ -244,6 +216,318 @@ nextButton.addEventListener('click', () => {
         generateSectorButtons();
     }
 });
+
+
+async function fetchSectorDetails(sectorId) {
+    try {
+        const response = await fetch(`/api/sectors/${sectorId}/`);
+        if (!response.ok) {
+            throw new Error("Nie udało się pobrać danych o sektorze.");
+        }
+        const data = await response.json();
+        updateSectorInfo(data); // Funkcja do aktualizacji panelu informacyjnego
+    } catch (error) {
+        console.error(error);
+        alert("Nie udało się pobrać danych o sektorze.");
+    }
+}
+
+function updateSectorInfo(data) {
+    const infoText = document.getElementById("info-text-login");
+
+    const installationLink = data["Installation"] !== "Brak instalacji"
+    ? `<a href="#" onclick="fetchInstallationDetails(${data["Installation ID"]}); return false;">${data["Installation"]}</a>` 
+    : "Brak instalacji";
+
+    infoText.innerHTML = `
+        <p>Nazwa sektora: ${data["Sector name"]}</p>
+        <p>Opis: ${data["Description"]}</p>
+        <p>Minimalna szerokość geograficzna: ${data["Min latitude"]}</p>
+        <p>Maksymalna szerokość geograficzna: ${data["Max latitude"]}</p>
+        <p>Minimalna długość geograficzna: ${data["Min longitude"]}</p>
+        <p>Maksymalna długość geograficzna: ${data["Max longitude"]}</p>
+        <p>Instalacja: ${installationLink}</p>
+    `;
+    document.getElementById("info-panel-login").style.left = "0px";
+}
+
+
+async function fetchStormDetails(storm_id) {
+    try {
+        const response = await fetch(`/api/storms/${storm_id}/`);
+        if (!response.ok) {
+            throw new Error("Nie udało się pobrać danych o burzy.");
+        }
+        const data = await response.json();
+        updateStormInfo(data); // Funkcja do aktualizacji panelu informacyjnego
+    } catch (error) {
+        console.error(error);
+        alert("Nie udało się pobrać danych o burzy.");
+    }
+}
+
+function updateStormInfo(data) {
+    const damageLink = data["Damage"] !== "Brak uszkodzeń"
+    ? `<a href="#" onclick="fetchDamageDetails(${data["Damage ID"]}); return false;">${data["Damage"]}</a>` 
+    : "Brak uszkodzeń";
+
+    const infoText = document.getElementById("info-text-login");
+    infoText.innerHTML = `
+        <p>Szerokość geograficzna centroidy: ${data["Centroid latitude"]}</p>
+        <p>Długość geograficzna centroidy: ${data["Centroid longitude"]}</p>
+        <p>Czas trwania: ${data["Duration"]}</p>
+        <p>Rok marsjański: ${data["Mars year"]}</p>
+        <p>ID fazy: ${data["Member ID"]}</p>
+        <p>Subfaza misji: ${data["Mission subphase"]}</p>
+        <p>Siła: ${data["Power"]}</p>
+        <p>Sol: ${data["Sol"]}</p>
+        <p>Szerokość burzy: ${data["Spread latitude"]}</p>
+        <p>Długość burzy: ${data["Spread longitude"]}</p>
+        <p>Uszkodzenia od kamieni: ${data["Stone damage"]}</p>
+        <p>Uszkodzenie: ${damageLink}</p>
+    `;
+    document.getElementById("info-panel-login").style.left = "0px";
+}
+
+
+async function fetchSpecialityDetails(speciality_id) {
+    try {
+        const response = await fetch(`/api/specialities/${speciality_id}/`);
+        if (!response.ok) {
+            throw new Error("Nie udało się pobrać danych o specjalizacji.");
+        }
+        const data = await response.json();
+        updateSpecialityInfo(data); // Funkcja do aktualizacji panelu informacyjnego
+    } catch (error) {
+        console.error(error);
+        alert("Nie udało się pobrać danych o specjalizacji.");
+    }
+}
+
+function updateSpecialityInfo(data) {
+    const staffLink = data["Staff"] !== "Brak personelu"
+    ? `<a href="#" onclick="fetchStaffDetails(${data["Staff ID"]}); return false;">${data["Staff"]}</a>` 
+    : "Brak personelu";
+
+    const infoText = document.getElementById("info-text-login");
+    infoText.innerHTML = `
+        <p>Nazwa: ${data["Name"]}</p>
+        <p>Pracownik: ${staffLink}</p>
+    `;
+    document.getElementById("info-panel-login").style.left = "0px";
+}
+
+
+async function fetchStaffDetails(staff_id) {
+    try {
+        const response = await fetch(`/api/staff/${staff_id}/`);
+        if (!response.ok) {
+            throw new Error("Nie udało się pobrać danych o pracowniku.");
+        }
+        const data = await response.json();
+        updateStaffInfo(data); // Funkcja do aktualizacji panelu informacyjnego
+    } catch (error) {
+        console.error(error);
+        alert("Nie udało się pobrać danych o pracowniku.");
+    }
+}
+
+function updateStaffInfo(data) {
+    const specialityLink = data["Speciality"] !== "Brak specjalizacji"
+    ? `<a href="#" onclick="fetchSpecialityDetails(${data["Speciality ID"]}); return false;">${data["Speciality"]}</a>` 
+    : "Brak specjalizacji";
+
+    const conservationScheduleLink = data["Conservation schedule"] !== "Brak napraw"
+    ? `<a href="#" onclick="fetchConservationScheduleDetails(${data["Conservation schedule ID"]}); return false;">${data["Conservation schedule"]}</a>` 
+    : "Brak napraw";
+
+    const infoText = document.getElementById("info-text-login");
+    infoText.innerHTML = `
+        <p>Specjalizacja: ${specialityLink}</p>
+        <p>Imię: ${data["Name"]}</p>
+        <p>Nazwisko: ${data["Surname"]}</p>
+        <p>Cechy: ${data["Traits"]}</p>
+        <p>Naprawa: ${conservationScheduleLink}</p>
+    `;
+    document.getElementById("info-panel-login").style.left = "0px";
+}
+
+
+async function fetchConservationScheduleDetails(task_id) {
+    try {
+        const response = await fetch(`/api/conservation_schedules/${task_id}/`);
+        if (!response.ok) {
+            throw new Error("Nie udało się pobrać danych o naprawie.");
+        }
+        const data = await response.json();
+        updateConservationScheduleInfo(data); // Funkcja do aktualizacji panelu informacyjnego
+    } catch (error) {
+        console.error(error);
+        alert("Nie udało się pobrać danych o naprawie.");
+    }
+}
+
+function updateConservationScheduleInfo(data) {
+    const staffLink = data["Staff"] !== "Brak personelu"
+    ? `<a href="#" onclick="fetchStaffDetails(${data["Staff ID"]}); return false;">${data["Staff"]}</a>` 
+    : "Brak personelu";
+
+    const damageLink = data["Damage"] !== "Brak uszkodzeń"
+    ? `<a href="#" onclick="fetchDamageScheduleDetails(${data["Damage ID"]}); return false;">${data["Damage"]}</a>` 
+    : "Brak uszkodzeń";
+
+    const infoText = document.getElementById("info-text-login");
+    infoText.innerHTML = `
+        <p>Pracownik: ${staffLink}</p>
+        <p>Czas rozpoczęcia: ${data["Start time"]}</p>
+        <p>Czas zakończenia: ${data["End time"]}</p>
+        <p>Uszkodzenie: ${damageLink}</p>
+    `;
+    document.getElementById("info-panel-login").style.left = "0px";
+}
+
+
+async function fetchPartDetails(part_id) {
+    try {
+        const response = await fetch(`/api/parts/${part_id}/`);
+        if (!response.ok) {
+            throw new Error("Nie udało się pobrać danych o części.");
+        }
+        const data = await response.json();
+        updatePartInfo(data); // Funkcja do aktualizacji panelu informacyjnego
+    } catch (error) {
+        console.error(error);
+        alert("Nie udało się pobrać danych o części.");
+    }
+}
+
+function updatePartInfo(data) {
+    const installationLink = data["Installation"] !== "Brak instalacji"
+    ? `<a href="#" onclick="fetchInstallationDetails(${data["Installation ID"]}); return false;">${data["Installation"]}</a>` 
+    : "Brak instalacji";
+
+    const partUsageLink = data["Part Usage"] !== "Brak użycia części"
+    ? `<a href="#" onclick="fetchPartUsageDetails(${data["Part Usage ID"]}); return false;">${data["Part Usage"]}</a>` 
+    : "Brak użycia części";
+
+    const damageLink = data["Damage"] !== "Brak uszkodzeń"
+    ? `<a href="#" onclick="fetchDamageDetails(${data["Damage ID"]}); return false;">${data["Damage"]}</a>` 
+    : "Brak uszkodzeń";
+
+    const infoText = document.getElementById("info-text-login");
+    infoText.innerHTML = `
+        <p>Instalacja: ${installationLink}</p>
+        <p>Nazwa: ${data["Name"]}</p>
+        <p>Użycie części: ${partUsageLink}</p>
+        <p>Uszkodzenie: ${damageLink}</p>
+    `;
+    document.getElementById("info-panel-login").style.left = "0px";
+}
+
+
+async function fetchInstallationDetails(installation_id) {
+    try {
+        const response = await fetch(`/api/installations/${installation_id}/`);
+        if (!response.ok) {
+            throw new Error("Nie udało się pobrać danych o instalacji.");
+        }
+        const data = await response.json();
+        updateInstallationInfo(data); // Funkcja do aktualizacji panelu informacyjnego
+    } catch (error) {
+        console.error(error);
+        alert("Nie udało się pobrać danych o instalacji.");
+    }
+}
+
+function updateInstallationInfo(data) {
+    const sectorLink = data["Sector Usage"] !== "Brak sektora"
+    ? `<a href="#" onclick="fetchSectorDetails(${data["Sector ID"]}); return false;">${data["Sector"]}</a>` 
+    : "Brak sektora";
+
+    const partUsageLink = data["Part usage"] !== "Brak użycia części"
+    ? `<a href="#" onclick="fetchPartUsageDetails(${data["Part usage ID"]}); return false;">${data["Part usage"]}</a>` 
+    : "Brak użycia części";
+
+    const infoText = document.getElementById("info-text-login");
+    infoText.innerHTML = `
+        <p>Sektor: ${sectorLink}</p>
+        <p>Nazwa: ${data["Name"]}</p>
+        <p>Użycie części: ${partUsageLink}</p>
+    `;
+    document.getElementById("info-panel-login").style.left = "0px";
+}
+
+
+async function fetchPartUsageDetails(part_usage_id) {
+    try {
+        const response = await fetch(`/api/parts_usages/${part_usage_id}/`);
+        if (!response.ok) {
+            throw new Error("Nie udało się pobrać danych o użyciu części.");
+        }
+        const data = await response.json();
+        updatePartUsageInfo(data); // Funkcja do aktualizacji panelu informacyjnego
+    } catch (error) {
+        console.error(error);
+        alert("Nie udało się pobrać danych o użyciu części.");
+    }
+}
+
+function updatePartUsageInfo(data) {
+    const partLink = data["Part"] !== "Brak części"
+    ? `<a href="#" onclick="fetchPartDetails(${data["Part ID"]}); return false;">${data["Part"]}</a>` 
+    : "Brak części";
+
+    const installationLink = data["Installation"] !== "Brak instalacji"
+    ? `<a href="#" onclick="fetchInstallationDetails(${data["Installation ID"]}); return false;">${data["Installation"]}</a>` 
+    : "Brak instalacji";
+
+    const infoText = document.getElementById("info-text-login");
+    infoText.innerHTML = `
+        <p>Część: ${partLink}</p>
+        <p>Instalacja: ${installationLink}</p>
+    `;
+    document.getElementById("info-panel-login").style.left = "0px";
+}
+
+
+async function fetchDamageDetails(damage_id) {
+    try {
+        const response = await fetch(`/api/damages/${damage_id}/`);
+        if (!response.ok) {
+            throw new Error("Nie udało się pobrać danych o uszkodzeniu.");
+        }
+        const data = await response.json();
+        updateDamageInfo(data); // Funkcja do aktualizacji panelu informacyjnego
+    } catch (error) {
+        console.error(error);
+        alert("Nie udało się pobrać danych o użyciu uszkodzeniu.");
+    }
+}
+
+function updateDamageInfo(data) {
+    const stormLink = data["Cause"] !== "Brak burzy"
+    ? `<a href="#" onclick="fetchStormDetails(${data["Cause ID"]}); return false;">${data["Cause"]}</a>` 
+    : "Brak burzy";
+
+    const partLink = data["Part"] !== "Brak części"
+    ? `<a href="#" onclick="fetchPartDetails(${data["Part ID"]}); return false;">${data["Part"]}</a>` 
+    : "Brak części";
+
+    const conservationScheduleLink = data["Queued task"] !== "Brak napraw"
+    ? `<a href="#" onclick="fetchConservationScheduleDetails(${data["Queued task ID"]}); return false;">${data["Queued task"]}</a>` 
+    : "Brak napraw";
+
+    const infoText = document.getElementById("info-text-login");
+    infoText.innerHTML = `
+        <p>Powód: ${stormLink}</p>
+        <p>Część: ${partLink}<p>
+        <p>Zaplanowana naprawa: ${conservationScheduleLink}<p>
+        <p>Stwierdzona czy podejrzewana: ${data["Presumpted or reported"]}<p>
+        <p>Poważność: ${data["Severity"]}<p>
+    `;
+    document.getElementById("info-panel-login").style.left = "0px";
+}
+
 
 const closePanelLogoutButton = document.getElementById('close-panel-logout');
 const closePanelLoginButton = document.getElementById('close-panel-login');

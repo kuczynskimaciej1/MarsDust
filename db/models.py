@@ -15,7 +15,7 @@ class Storm(models.Model):
     stone_damage = models.BooleanField()
 
     def __str__(self):
-        return f"Storm {self.storm_id} - Year {self.mars_year}"
+        return str(f"Storm {self.storm_id} - Coordinates {self.centroid_latitude} x {self.centroid_longitude}")
 
 
 class Speciality(models.Model):
@@ -23,7 +23,7 @@ class Speciality(models.Model):
     name = models.CharField(max_length=255)  # Name, NOT NULL
 
     def __str__(self):
-        return str(self.name)
+        return str(f"{self.name}")
 
 
 class Staff(models.Model):
@@ -34,7 +34,7 @@ class Staff(models.Model):
     traits = models.CharField(max_length=255)  # Traits, NOT NULL
 
     def __str__(self):
-        return f"{self.name} {self.surname}"
+        return str(f"{self.name} {self.surname}")
 
 
 class ConservationSchedule(models.Model):
@@ -44,7 +44,7 @@ class ConservationSchedule(models.Model):
     end_time = models.DateTimeField()  # End timestamp, NOT NULL
 
     def __str__(self):
-        return f"Task {self.task_id} - Staff {self.staff.name}"
+        return str(f"Task {self.task_id} - Staff {self.staff.name}")
 
 
 class Part(models.Model):
@@ -53,7 +53,7 @@ class Part(models.Model):
     name = models.TextField(max_length=255)
 
     def __str__(self):
-        return f"Part {self.part_id}"
+        return str(f"{self.name}")
 
 
 class Installation(models.Model):
@@ -62,7 +62,7 @@ class Installation(models.Model):
     name = models.CharField(max_length=255)
 
     def __str__(self):
-        return str(self.installation_id)
+        return str(f"{self.name}")
     
 
 class Sector(models.Model):
@@ -76,7 +76,7 @@ class Sector(models.Model):
     parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name='sub_sectors', null=True, blank=True)
 
     def __str__(self):
-        return str(self.sector_id)
+        return str(f"{self.sector_id} - {self.name}")
 
 
 class PartsUsage(models.Model):
@@ -85,7 +85,7 @@ class PartsUsage(models.Model):
     part = models.OneToOneField('Part', on_delete=models.CASCADE, related_name='PartsUsage')  # Foreign key to PartsInternalCode
 
     def __str__(self):
-        return f"Usage: Installation {self.installation} - Part {self.part}"
+        return str(f"Usage: Installation {self.installation} - Part {self.part}")
 
 
 class Damage(models.Model):
@@ -97,4 +97,4 @@ class Damage(models.Model):
     severity = models.IntegerField()  # Severity level, NOT NULL
 
     def __str__(self):
-        return f"Damaged Part {self.part} - Severity {self.severity}"
+        return str(f"Damaged Part {self.part}")
