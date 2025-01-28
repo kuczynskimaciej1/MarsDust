@@ -125,18 +125,40 @@ let currentSector = null;
 
 // Funkcja wyświetlająca informacje o sektorze
 function showSectorInfo(sector) {
-  const infoText = document.getElementById('info-text');
-  const details = {
-    1: "Sektor 1: Prognoza burz na najbliższy tydzień jest spokojna.",
-    2: "Sektor 2: Ostrzeżenie o możliwych burzach piaskowych.",
-    3: "Sektor 3: Stabilne warunki pogodowe, idealne do eksploracji.",
-    4: "Sektor 4: Wysoka aktywność pyłowa, zachowaj ostrożność.",
-    5: "Sektor 5: Optymalne warunki dla misji badawczej.",
-    11: "Sektor 11: Warunki sprzyjające budowie bazy, przewidywana stabilność atmosferyczna.",
-  };
-  infoText.innerText = details[sector] || "Brak danych o wybranym sektorze.";
-  currentSector = sector;  
-  document.getElementById('info-panel').style.left = '0px';
+    if (isLoggedIn == false)
+    {
+        const infoText = document.getElementById('info-text-logout');
+        const details = {
+          1: "Sektor 1: Prognoza burz na najbliższy tydzień jest spokojna.",
+          2: "Sektor 2: Ostrzeżenie o możliwych burzach piaskowych.",
+          3: "Sektor 3: Stabilne warunki pogodowe, idealne do eksploracji.",
+          4: "Sektor 4: Wysoka aktywność pyłowa, zachowaj ostrożność.",
+          5: "Sektor 5: Optymalne warunki dla misji badawczej.",
+          6: "Sektor 6: Średnie ryzyko burz piaskowych, zaleca się ograniczenie działań na otwartej przestrzeni.",
+          7: "Sektor 7: Warunki pogodowe stabilne, ale możliwość podwyższonej aktywności pyłowej w godzinach wieczornych.",
+          8: "Sektor 8: Niska widoczność z powodu unoszącego się pyłu, konieczne stosowanie dodatkowych filtrów ochronnych.",
+          9: "Sektor 9: Spokojna pogoda, idealna do konserwacji instalacji i sprzętu.",
+          10: "Sektor 10: Silne wiatry przewidywane na popołudnie, możliwe opóźnienia w komunikacji terenowej.",
+          11: "Sektor 11: Warunki sprzyjające budowie bazy, przewidywana stabilność atmosferyczna.",
+          12: "Sektor 12: Stabilne warunki atmosferyczne, sprzyjające testom nowych technologii.",
+          13: "Sektor 13: Podwyższona aktywność burz pyłowych w rejonach południowych, sugerowana ostrożność.",
+          14: "Sektor 14: Niewielkie podmuchy wiatru i umiarkowane warunki atmosferyczne, dobre do misji zwiadowczych.",
+          15: "Sektor 15: Możliwe krótkotrwałe burze magnetyczne, zachowaj ostrożność przy obsłudze urządzeń elektronicznych.",
+          16: "Sektor 16: Warunki atmosferyczne sprzyjające eksploracji, minimalna aktywność pyłowa.",
+          17: "Sektor 17: Średnie ryzyko burz, zaleca się monitorowanie warunków w czasie rzeczywistym.",
+          18: "Sektor 18: Spokojne warunki atmosferyczne, idealne do instalacji nowych paneli solarnych.",
+          19: "Sektor 19: Lekka aktywność pyłowa, zalecane działania prewencyjne na systemach wentylacyjnych.",
+          20: "Sektor 20: Przewidywana stabilność atmosferyczna, doskonała okazja do rozszerzenia działań naukowych.",
+        };
+        infoText.innerText = details[sector] || "Brak danych o wybranym sektorze.";
+        currentSector = sector;  
+        document.getElementById('info-panel-logout').style.left = '0px';
+    }
+
+    else
+    {
+        fetchSectorDetails(sector);
+    }
 }
 
 // Funkcja wyświetlająca informacje o bazie
@@ -147,10 +169,24 @@ function showBaseInfo() {
     3: "Baza w sektorze 3: Idealne warunki do długoterminowego pobytu.",
     4: "Baza w sektorze 4: Zbudowanie bazy jest ryzykowne z powodu dużej aktywności pyłowej.",
     5: "Baza w sektorze 5: Stabilne warunki, bezpieczne dla długoterminowego osiedlenia.",
+    6: "Baza w sektorze 6: Warunki umiarkowane, ale możliwe krótkotrwałe burze piaskowe – zaleca się ostrożność przy budowie.",
+    7: "Baza w sektorze 7: Stabilna pogoda w większości rejonów, ale lokalna aktywność pyłowa może wpływać na widoczność.",
+    8: "Baza w sektorze 8: Niska widoczność z powodu unoszącego się pyłu, ale stabilne warunki do instalacji sprzętu ochronnego.",
+    9: "Baza w sektorze 9: Spokojne warunki atmosferyczne sprzyjają długoterminowym operacjom technicznym.",
+    10: "Baza w sektorze 10: Możliwe okresowe silne wiatry, zaleca się zabezpieczenie struktur budowlanych.",
     11: "Baza w sektorze 11: Warunki sprzyjające budowie bazy, przewidywana stabilność atmosferyczna.",
+    12: "Baza w sektorze 12: Stabilne warunki pogodowe, idealne do rozwijania infrastruktury naukowej.",
+    13: "Baza w sektorze 13: Podwyższone ryzyko burz pyłowych w niektórych rejonach – sugerowane wzmocnienie systemów ochronnych.",
+    14: "Baza w sektorze 14: Umiarkowane warunki atmosferyczne, dobre do rozpoczęcia mniejszych projektów osadniczych.",
+    15: "Baza w sektorze 15: Możliwe zakłócenia magnetyczne, ale ogólnie bezpieczne warunki do budowy i eksploatacji.",
+    16: "Baza w sektorze 16: Stabilne warunki atmosferyczne sprzyjają rozwojowi nowych instalacji technicznych.",
+    17: "Baza w sektorze 17: Średnie ryzyko wystąpienia burz pyłowych – zalecana ciągła obserwacja pogody.",
+    18: "Baza w sektorze 18: Stabilna pogoda idealna do rozbudowy paneli solarnych i infrastruktury energetycznej.",
+    19: "Baza w sektorze 19: Aktywność pyłowa jest minimalna, ale zalecane są prewencyjne środki ochrony sprzętu.",
+    20: "Baza w sektorze 20: Warunki atmosferyczne są bardzo korzystne, idealne miejsce na dalszą ekspansję naukową.",
   };
 
-  const infoText = document.getElementById('info-text');
+  const infoText = document.getElementById('info-text-logout');
   infoText.innerText += "\n\n" + baseInfo[currentSector] || "Brak danych o bazie dla tego sektora.";
 }
 
@@ -158,10 +194,13 @@ function showBaseInfo() {
 document.getElementById('base-button').addEventListener('click', showBaseInfo);
 
 // Inne przyciski (np. "Zamknij")
-document.getElementById('close-panel').addEventListener('click', () => {
-  document.getElementById('info-panel').style.left = '-400px';
+document.getElementById('close-panel-login').addEventListener('click', () => {
+  document.getElementById('info-panel-login').style.left = '-400px';
 });
 
+document.getElementById('close-panel-logout').addEventListener('click', () => {
+    document.getElementById('info-panel-logout').style.left = '-400px';
+  });
 
 // Obsługa przycisków nawigacyjnych
 prevButton.addEventListener('click', () => {
@@ -178,10 +217,336 @@ nextButton.addEventListener('click', () => {
     }
 });
 
-const closePanelButton = document.getElementById('close-panel');
 
-closePanelButton.addEventListener('click', () => {
-    document.getElementById('info-panel').style.left = '-400px';  
+async function fetchSectorDetails(sectorId) {
+    try {
+        const response = await fetch(`/api/sectors/${sectorId}/`);
+        if (!response.ok) {
+            throw new Error("Nie udało się pobrać danych o sektorze.");
+        }
+        const data = await response.json();
+        updateSectorInfo(data); // Funkcja do aktualizacji panelu informacyjnego
+    } catch (error) {
+        console.error(error);
+        alert("Nie udało się pobrać danych o sektorze.");
+    }
+}
+
+function updateSectorInfo(data) {
+    const infoText = document.getElementById("info-text-login");
+
+    const installationLink = data["Installation"] !== "Brak instalacji"
+    ? `<a href="#" onclick="fetchInstallationDetails(${data["Installation ID"]}); return false;">${data["Installation"]}</a>` 
+    : "Brak instalacji";
+
+    infoText.innerHTML = `
+        <h3>Sektor ${data["Info"]}</h3>
+        <p><strong>Nazwa sektora:</strong> ${data["Sector name"]}</p>
+        <p><strong>Opis:</strong> ${data["Description"]}</p>
+        <p><strong>Minimalna szerokość geograficzna:</strong> ${data["Min latitude"]}</p>
+        <p><strong>Maksymalna szerokość geograficzna:</strong> ${data["Max latitude"]}</p>
+        <p><strong>Minimalna długość geograficzna:</strong> ${data["Min longitude"]}</p>
+        <p><strong>Maksymalna długość geograficzna:</strong> ${data["Max longitude"]}</p>
+        <p><strong>Instalacja:</strong> ${installationLink}</p>
+    `;
+    document.getElementById("info-panel-login").style.left = "0px";
+}
+
+
+async function fetchStormDetails(storm_id) {
+    try {
+        const response = await fetch(`/api/storms/${storm_id}/`);
+        if (!response.ok) {
+            throw new Error("Nie udało się pobrać danych o burzy.");
+        }
+        const data = await response.json();
+        updateStormInfo(data); // Funkcja do aktualizacji panelu informacyjnego
+    } catch (error) {
+        console.error(error);
+        alert("Nie udało się pobrać danych o burzy.");
+    }
+}
+
+function updateStormInfo(data) {
+    const damageLink = data["Damage"] !== "Brak uszkodzeń"
+    ? `<a href="#" onclick="fetchDamageDetails(${data["Damage ID"]}); return false;">${data["Damage"]}</a>` 
+    : "Brak uszkodzeń";
+
+    const infoText = document.getElementById("info-text-login");
+    infoText.innerHTML = `
+        <h3>Burza ${data["Info"]}</h3>
+        <p><strong>Szerokość geograficzna centroidy:</strong> ${data["Centroid latitude"]}</p>
+        <p><strong>Długość geograficzna centroidy:</strong> ${data["Centroid longitude"]}</p>
+        <p><strong>Czas trwania:</strong> ${data["Duration"]}</p>
+        <p><strong>Rok marsjański:</strong> ${data["Mars year"]}</p>
+        <p><strong>ID fazy:</strong> ${data["Member ID"]}</p>
+        <p><strong>Subfaza misji:</strong> ${data["Mission subphase"]}</p>
+        <p><strong>Siła:</strong> ${data["Power"]}</p>
+        <p><strong>Sol:</strong> ${data["Sol"]}</p>
+        <p><strong>Szerokość burzy:</strong> ${data["Spread latitude"]}</p>
+        <p><strong>Długość burzy:</strong> ${data["Spread longitude"]}</p>
+        <p><strong>Uszkodzenia od kamieni:</strong> ${data["Stone damage"]}</p>
+        <p><strong>Uszkodzenie:</strong> ${damageLink}</p>
+    `;
+    document.getElementById("info-panel-login").style.left = "0px";
+}
+
+
+async function fetchSpecialityDetails(speciality_id) {
+    try {
+        const response = await fetch(`/api/specialities/${speciality_id}/`);
+        if (!response.ok) {
+            throw new Error("Nie udało się pobrać danych o specjalizacji.");
+        }
+        const data = await response.json();
+        updateSpecialityInfo(data); // Funkcja do aktualizacji panelu informacyjnego
+    } catch (error) {
+        console.error(error);
+        alert("Nie udało się pobrać danych o specjalizacji.");
+    }
+}
+
+function updateSpecialityInfo(data) {
+    const staffLink = data["Staff"] !== "Brak personelu"
+    ? `<a href="#" onclick="fetchStaffDetails(${data["Staff ID"]}); return false;">${data["Staff"]}</a>` 
+    : "Brak personelu";
+
+    const infoText = document.getElementById("info-text-login");
+    infoText.innerHTML = `
+        <h3>Specjalizacja ${data["Info"]}</h3>
+        <p><strong>Nazwa:</strong> ${data["Name"]}</p>
+        <p><strong>Pracownik:</strong> ${staffLink}</p>
+    `;
+    document.getElementById("info-panel-login").style.left = "0px";
+}
+
+
+async function fetchStaffDetails(staff_id) {
+    try {
+        const response = await fetch(`/api/staff/${staff_id}/`);
+        if (!response.ok) {
+            throw new Error("Nie udało się pobrać danych o pracowniku.");
+        }
+        const data = await response.json();
+        updateStaffInfo(data); // Funkcja do aktualizacji panelu informacyjnego
+    } catch (error) {
+        console.error(error);
+        alert("Nie udało się pobrać danych o pracowniku.");
+    }
+}
+
+function updateStaffInfo(data) {
+    const specialityLink = data["Speciality"] !== "Brak specjalizacji"
+    ? `<a href="#" onclick="fetchSpecialityDetails(${data["Speciality ID"]}); return false;">${data["Speciality"]}</a>` 
+    : "Brak specjalizacji";
+
+    const conservationScheduleLink = data["Conservation schedule"] !== "Brak napraw"
+    ? `<a href="#" onclick="fetchConservationScheduleDetails(${data["Conservation schedule ID"]}); return false;">${data["Conservation schedule"]}</a>` 
+    : "Brak napraw";
+
+    const infoText = document.getElementById("info-text-login");
+    infoText.innerHTML = `
+        <h3>Pracownik ${data["Info"]}</h3>
+        <p><strong>Specjalizacja:</strong> ${specialityLink}</p>
+        <p><strong>Imię:</strong> ${data["Name"]}</p>
+        <p><strong>Nazwisko:</strong> ${data["Surname"]}</p>
+        <p><strong>Cechy:</strong> ${data["Traits"]}</p>
+        <p><strong>Naprawa:</strong> ${conservationScheduleLink}</p>
+    `;
+    document.getElementById("info-panel-login").style.left = "0px";
+}
+
+
+async function fetchConservationScheduleDetails(task_id) {
+    try {
+        const response = await fetch(`/api/conservation_schedules/${task_id}/`);
+        if (!response.ok) {
+            throw new Error("Nie udało się pobrać danych o naprawie.");
+        }
+        const data = await response.json();
+        updateConservationScheduleInfo(data); // Funkcja do aktualizacji panelu informacyjnego
+    } catch (error) {
+        console.error(error);
+        alert("Nie udało się pobrać danych o naprawie.");
+    }
+}
+
+function updateConservationScheduleInfo(data) {
+    const staffLink = data["Staff"] !== "Brak personelu"
+    ? `<a href="#" onclick="fetchStaffDetails(${data["Staff ID"]}); return false;">${data["Staff"]}</a>` 
+    : "Brak personelu";
+
+    const damageLink = data["Damage"] !== "Brak uszkodzeń"
+    ? `<a href="#" onclick="fetchDamageScheduleDetails(${data["Damage ID"]}); return false;">${data["Damage"]}</a>` 
+    : "Brak uszkodzeń";
+
+    const infoText = document.getElementById("info-text-login");
+    infoText.innerHTML = `
+        <h3>Naprawa ${data["Info"]}</h3>
+        <p><strong>Pracownik:</strong> ${staffLink}</p>
+        <p><strong>Czas rozpoczęcia:</strong> ${data["Start time"]}</p>
+        <p><strong>Czas zakończenia:</strong> ${data["End time"]}</p>
+        <p><strong>Uszkodzenie:</strong> ${damageLink}</p>
+    `;
+    document.getElementById("info-panel-login").style.left = "0px";
+}
+
+
+async function fetchPartDetails(part_id) {
+    try {
+        const response = await fetch(`/api/parts/${part_id}/`);
+        if (!response.ok) {
+            throw new Error("Nie udało się pobrać danych o części.");
+        }
+        const data = await response.json();
+        updatePartInfo(data); // Funkcja do aktualizacji panelu informacyjnego
+    } catch (error) {
+        console.error(error);
+        alert("Nie udało się pobrać danych o części.");
+    }
+}
+
+function updatePartInfo(data) {
+    const installationLink = data["Installation"] !== "Brak instalacji"
+    ? `<a href="#" onclick="fetchInstallationDetails(${data["Installation ID"]}); return false;">${data["Installation"]}</a>` 
+    : "Brak instalacji";
+
+    const partUsageLink = data["Part Usage"] !== "Brak użycia części"
+    ? `<a href="#" onclick="fetchPartUsageDetails(${data["Part Usage ID"]}); return false;">${data["Part Usage"]}</a>` 
+    : "Brak użycia części";
+
+    const damageLink = data["Damage"] !== "Brak uszkodzeń"
+    ? `<a href="#" onclick="fetchDamageDetails(${data["Damage ID"]}); return false;">${data["Damage"]}</a>` 
+    : "Brak uszkodzeń";
+
+    const infoText = document.getElementById("info-text-login");
+    infoText.innerHTML = `
+        <h3>Część ${data["Info"]}</h3>
+        <p><strong>Instalacja:</strong> ${installationLink}</p>
+        <p><strong>Nazwa:</strong> ${data["Name"]}</p>
+        <p><strong>Użycie części:</strong> ${partUsageLink}</p>
+        <p><strong>Uszkodzenie:</strong> ${damageLink}</p>
+    `;
+    document.getElementById("info-panel-login").style.left = "0px";
+}
+
+
+async function fetchInstallationDetails(installation_id) {
+    try {
+        const response = await fetch(`/api/installations/${installation_id}/`);
+        if (!response.ok) {
+            throw new Error("Nie udało się pobrać danych o instalacji.");
+        }
+        const data = await response.json();
+        updateInstallationInfo(data); // Funkcja do aktualizacji panelu informacyjnego
+    } catch (error) {
+        console.error(error);
+        alert("Nie udało się pobrać danych o instalacji.");
+    }
+}
+
+function updateInstallationInfo(data) {
+    const sectorLink = data["Sector Usage"] !== "Brak sektora"
+    ? `<a href="#" onclick="fetchSectorDetails(${data["Sector ID"]}); return false;">${data["Sector"]}</a>` 
+    : "Brak sektora";
+
+    const partUsageLink = data["Part usage"] !== "Brak użycia części"
+    ? `<a href="#" onclick="fetchPartUsageDetails(${data["Part usage ID"]}); return false;">${data["Part usage"]}</a>` 
+    : "Brak użycia części";
+
+    const infoText = document.getElementById("info-text-login");
+    infoText.innerHTML = `
+        <h3>Instalacja ${data["Info"]}</h3>
+        <p><strong>Sektor:</strong> ${sectorLink}</p>
+        <p><strong>Nazwa:</strong> ${data["Name"]}</p>
+        <p><strong>Użycie części:</strong> ${partUsageLink}</p>
+    `;
+    document.getElementById("info-panel-login").style.left = "0px";
+}
+
+
+async function fetchPartUsageDetails(part_usage_id) {
+    try {
+        const response = await fetch(`/api/parts_usages/${part_usage_id}/`);
+        if (!response.ok) {
+            throw new Error("Nie udało się pobrać danych o użyciu części.");
+        }
+        const data = await response.json();
+        updatePartUsageInfo(data); // Funkcja do aktualizacji panelu informacyjnego
+    } catch (error) {
+        console.error(error);
+        alert("Nie udało się pobrać danych o użyciu części.");
+    }
+}
+
+function updatePartUsageInfo(data) {
+    const partLink = data["Part"] !== "Brak części"
+    ? `<a href="#" onclick="fetchPartDetails(${data["Part ID"]}); return false;">${data["Part"]}</a>` 
+    : "Brak części";
+
+    const installationLink = data["Installation"] !== "Brak instalacji"
+    ? `<a href="#" onclick="fetchInstallationDetails(${data["Installation ID"]}); return false;">${data["Installation"]}</a>` 
+    : "Brak instalacji";
+
+    const infoText = document.getElementById("info-text-login");
+    infoText.innerHTML = `
+        <h3>Użycie części ${data["Info"]}</h3>
+        <p><strong>Część:</strong> ${partLink}</p>
+        <p><strong>Instalacja:</strong> ${installationLink}</p>
+    `;
+    document.getElementById("info-panel-login").style.left = "0px";
+}
+
+
+async function fetchDamageDetails(damage_id) {
+    try {
+        const response = await fetch(`/api/damages/${damage_id}/`);
+        if (!response.ok) {
+            throw new Error("Nie udało się pobrać danych o uszkodzeniu.");
+        }
+        const data = await response.json();
+        updateDamageInfo(data); // Funkcja do aktualizacji panelu informacyjnego
+    } catch (error) {
+        console.error(error);
+        alert("Nie udało się pobrać danych o użyciu uszkodzeniu.");
+    }
+}
+
+function updateDamageInfo(data) {
+    const stormLink = data["Cause"] !== "Brak burzy"
+    ? `<a href="#" onclick="fetchStormDetails(${data["Cause ID"]}); return false;">${data["Cause"]}</a>` 
+    : "Brak burzy";
+
+    const partLink = data["Part"] !== "Brak części"
+    ? `<a href="#" onclick="fetchPartDetails(${data["Part ID"]}); return false;">${data["Part"]}</a>` 
+    : "Brak części";
+
+    const conservationScheduleLink = data["Queued task"] !== "Brak napraw"
+    ? `<a href="#" onclick="fetchConservationScheduleDetails(${data["Queued task ID"]}); return false;">${data["Queued task"]}</a>` 
+    : "Brak napraw";
+
+    const infoText = document.getElementById("info-text-login");
+    infoText.innerHTML = `
+        <h3>Uszkodzenie ${data["Info"]}</h3>
+        <p><strong>Powód:</strong> ${stormLink}</p>
+        <p><strong>Część:</strong> ${partLink}<p>
+        <p><strong>Zaplanowana naprawa:</strong> ${conservationScheduleLink}<p>
+        <p><strong>Stwierdzona czy podejrzewana:</strong> ${data["Presumpted or reported"]}<p>
+        <p><strong>Poważność:</strong> ${data["Severity"]}<p>
+    `;
+    document.getElementById("info-panel-login").style.left = "0px";
+}
+
+
+const closePanelLogoutButton = document.getElementById('close-panel-logout');
+const closePanelLoginButton = document.getElementById('close-panel-login');
+
+closePanelLoginButton.addEventListener('click', () => {
+    document.getElementById('info-panel-login').style.left = '-400px';  
+});
+
+closePanelLogoutButton.addEventListener('click', () => {
+    document.getElementById('info-panel-logout').style.left = '-400px';  
 });
 
 generateSectorButtons();
@@ -195,6 +560,7 @@ const registerButton = document.getElementById('register-button');
 const closeLoginPanelButton = document.getElementById('close-login-panel');
 const adminPanelButton = document.getElementById('admin-panel-button');
 const closeRegisterPanelButton = document.getElementById('close-register-panel');
+let isLoggedIn = false;
 
 loginButton.addEventListener('click', () => {
     loginPanel.style.right = '0px';
@@ -255,6 +621,7 @@ async function handleLogin(event) {
             <button id="logout-button">Wyloguj</button>
         `;
         document.querySelector("#logout-button").addEventListener("click", handleLogout);
+        isLoggedIn = true;
     } catch (error) {
         alert(error.message);
     }
@@ -266,6 +633,7 @@ async function handleLogout() {
         await postData(API_LOGOUT_URL, {});
         alert("Wylogowanie udane!");
         window.location.href = "/"; // Przekierowanie na stronę główną
+        isLoggedIn = false;
     } catch (error) {
         alert(error.message);
     }

@@ -103,7 +103,7 @@ button:active {
 }
 
 /* Panel z informacjami */
-#info-panel {
+#info-panel-login {
     position: fixed;
     top: 60px;
     left: -400px;
@@ -117,11 +117,29 @@ button:active {
     z-index: 10;
 }
 
-#info-content {
+#info-panel-logout {
+    position: fixed;
+    top: 60px;
+    left: -400px;
+    width: 300px;
+    height: calc(100% - 60px);
+    background-color: #222;
+    color: white;
+    padding: 20px;
+    box-shadow: 3px 0 10px rgba(0, 0, 0, 0.5);
+    transition: left 0.5s ease;
+    z-index: 10;
+}
+
+#info-content-login {
     margin-bottom: 20px;
 }
 
-#info-panel h2 {
+#info-content-logout {
+    margin-bottom: 20px;
+}
+
+#info-panel-login h2 {
     margin-top: 0;
     font-size: 24px;
     text-transform: uppercase;
@@ -129,12 +147,25 @@ button:active {
     padding-bottom: 10px;
 }
 
-#info-panel p {
+#info-panel-logout h2 {
+    margin-top: 0;
+    font-size: 24px;
+    text-transform: uppercase;
+    border-bottom: 2px solid white;
+    padding-bottom: 10px;
+}
+
+#info-panel-login p {
     font-size: 16px;
     line-height: 1.5;
 }
 
-#close-panel {
+#info-panel-logout p {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+#close-panel-login {
     background-color: rgba(255, 255, 255, 0.3);
     border: none;
     color: white;
@@ -146,7 +177,23 @@ button:active {
     transition: background-color 0.3s;
 }
 
-#close-panel:hover {
+#close-panel-login:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+#close-panel-logout {
+    background-color: rgba(255, 255, 255, 0.3);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+#close-panel-logout:hover {
     background-color: rgba(255, 255, 255, 0.5);
 }
 
@@ -367,4 +414,20 @@ button:active {
 
 #close-deimos-panel:hover {
     background-color: rgba(255, 255, 255, 0.5);
+}
+
+#info-text-login a {
+    color: white !important; /* Ustawia biały kolor dla linków */
+}
+
+#info-text-login a:visited {
+    color: white !important; /* Biały kolor dla odwiedzonych linków */
+}
+
+#info-text-login a:hover {
+    color: white !important; /* Biały kolor po najechaniu */
+}
+
+#info-text-login a:active {
+    color: white !important; /* Biały kolor dla aktywnych linków */
 }

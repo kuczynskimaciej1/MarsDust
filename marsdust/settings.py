@@ -164,3 +164,6 @@ TEMPLATES = [
         },
     },
 ]
+
+LOGIN_REDIRECT_URL = '/login-page/'  # Przekierowanie po zalogowaniu
+LOGOUT_REDIRECT_URL = '/'           # Przekierowanie po wylogowaniu

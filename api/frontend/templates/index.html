@@ -41,15 +41,24 @@
 
     
 
-    <!-- Panel z informacjami o sektorze -->
-    <div id="info-panel">
-      <div id="info-content">
+    <!-- Panel z informacjami o sektorze dla niezalogowanych -->
+    <div id="info-panel-logout">
+      <div id="info-content-logout">
         <h2>Informacje o sektorze</h2>
-        <p id="info-text">Wybierz sektor, aby zobaczyć szczegóły.</p>
+        <p id="info-text-logout">Wybierz sektor, aby zobaczyć szczegóły.</p>
         <!-- Przycisk Baza, który wyświetli dodatkowe informacje -->
         <button id="base-button">Status bazy</button>
       </div>
-      <button id="close-panel">Zamknij</button>
+      <button id="close-panel-logout">Zamknij</button>
+    </div>
+
+    <!-- Panel z informacjami o sektorze dla zalogowanych -->
+    <div id="info-panel-login">
+      <div id="info-content-login">
+        <h2>Informacje</h2>
+        <p id="info-text-login">Wybierz sektor, aby zobaczyć szczegóły.</p>
+      </div>
+      <button id="close-panel-login">Zamknij</button>
     </div>
 
     <div id="login-panel">
